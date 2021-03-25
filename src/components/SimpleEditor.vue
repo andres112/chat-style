@@ -1,6 +1,6 @@
 <template>
   <div class="simple-editor">
-    <vue-speech @onTranscriptionEnd="onEnd" />
+    <speech @onTranscriptionEnd="onEnd" :isListening="voice" />
     <v-container fluid d-inline-flex>
       <v-checkbox
         v-for="item in textStyle"
@@ -24,6 +24,7 @@
 
 <script>
 import Quill from "quill";
+import Speech from "@/components/Speech";
 
 export default {
   props: {
@@ -32,9 +33,11 @@ export default {
       type: String,
     },
   },
+  components: { Speech },
 
   data() {
     return {
+      voice: false,
       textStyle: [
         { command: "strong", value: "bold" },
         { command: "italic", value: "italic" },
@@ -67,7 +70,7 @@ export default {
             [{ direction: "rtl" }],
           ],
         },
-        theme: "bubble",
+        theme: "snow",
       },
     };
   },
@@ -134,22 +137,47 @@ export default {
     onEnd({ lastSentence, transcription }) {
       this.lastCommand = lastSentence;
       this.transcription = transcription;
-      if (lastSentence == "strong") {
-        this.selected.push("bold");
+      const array = lastSentence.split(" ");
+      if (lastSentence.includes("start")) {
+        this.voice = true;
         return;
       }
-      if (lastSentence == "italic") {
-        this.selected.push("italic");
+      if (lastSentence.includes("stop")) {
+        this.voice = false;
         return;
       }
-      if (lastSentence == "underline") {
-        this.selected.push("underline");
-        return;
+      if (this.voice) {
+        if (array.some((x) => this.isColor(x))) {
+          const color = array.find((x) => this.isColor(x.toLowerCase()));
+          this.editorInstance.format("color", color);
+        }
+        if (lastSentence.includes("normal")) {
+          this.selected = [];
+          this.editorInstance.format("color", "black");
+          return;
+        }
+        if (lastSentence.includes("strong")) {
+          this.selected.push("bold");
+          return;
+        }
+        if (lastSentence.includes("talic")) {
+          this.selected.push("italic");
+          return;
+        }
+        if (lastSentence.includes("nderline")) {
+          this.selected.push("underline");
+          return;
+        }
+        if (lastSentence.includes("strike")) {
+          this.selected.push("strike");
+          return;
+        }
       }
-      if (lastSentence == "strike") {
-        this.selected.push("strike");
-        return;
-      }
+    },
+    isColor(strColor) {
+      var s = new Option().style;
+      s.color = strColor;
+      return s.color == strColor;
     },
   },
 };
