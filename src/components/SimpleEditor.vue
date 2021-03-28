@@ -1,15 +1,7 @@
 <template>
   <div class="simple-editor">
     <v-container fluid d-inline-flex>
-      <v-checkbox
-        v-for="item in textStyle"
-        :key="item.value"
-        v-model="styleArray"
-        :label="item.command"
-        :value="item.value"
-        class="ml-3"
-        disabled
-      ></v-checkbox>
+      <pre>{{ stylesObject }}</pre>
     </v-container>
 
     <div
@@ -23,6 +15,15 @@
 <script>
 import Quill from "quill";
 import { mapState, mapActions } from "vuex";
+
+const DEFAULT_COMMANDS = {
+  bold: false,
+  italic: false,
+  underline: false,
+  strike: false,
+  color: "black",
+  background: "",
+};
 
 export default {
   props: {
@@ -60,38 +61,28 @@ export default {
         this.editorInstance.pasteHTML(newVal);
       }
     },
-    styleArray() {
-      const aux = this;
-      this.textStyle.forEach(function(x) {
-        if (aux.styleArray.some((style) => style == x.value)) {
-          if (aux.rangeSelected?.length > 0) {
-            aux.editorInstance.formatText(
-              aux.rangeSelected.index,
-              aux.rangeSelected.length,
-              { [x.value]: true }
-            );
-            return;
-          }
-          aux.editorInstance.format(x.value, true);
-        } else {
-          aux.editorInstance.format(x.value, false);
-        }
-      });
-    },
-    color() {
+    stylesObject() {
+      const newStyle = this.stylesObject;
+
+      // Verify if text to modify is a range selection
       if (this.rangeSelected?.length > 0) {
         this.editorInstance.formatText(
           this.rangeSelected.index,
           this.rangeSelected.length,
-          {
-            color: this.color.textColor,
-            background: this.color.backgroundColor,
-          }
+          newStyle
         );
         return;
       }
-      this.editorInstance.format("color", this.color.textColor);
-      this.editorInstance.format("background", this.color.backgroundColor);
+
+      // When there is not range selected
+      const aux = this;
+      Object.keys(DEFAULT_COMMANDS).forEach(function(command) {
+        if (newStyle.hasOwnProperty(command)) {
+          aux.editorInstance.format(command, newStyle[command]);
+          return;
+        }
+        aux.editorInstance.format(command, DEFAULT_COMMANDS[command]);
+      });
     },
   },
 
@@ -103,7 +94,9 @@ export default {
     // Turn off all listeners set on text-change
     this.editorInstance.off("text-change");
   },
-  computed: { ...mapState(["styleArray", "color", "selectionFlag"]) },
+  computed: {
+    ...mapState(["selectionFlag", "stylesObject"]),
+  },
 
   methods: {
     ...mapActions(["clearStyles"]),
@@ -133,9 +126,6 @@ export default {
     },
     onSelectionChanged(range) {
       if (range) {
-        if (range.length == 0) {
-          this.clearStyles();
-        }
         this.rangeSelected = range;
       } else {
         this.rangeSelected = {};

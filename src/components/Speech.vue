@@ -1,5 +1,4 @@
-<template>
-</template>
+<template> </template>
 
 <script>
 export default {
@@ -64,6 +63,9 @@ export default {
 
   mounted() {
     this.checkApi();
+  },
+  beforeDestroy() {
+    this.recognition.stop();
   },
 };
 </script>

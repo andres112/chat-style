@@ -5,7 +5,8 @@ Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
-    styleArray: [],
+    // styleArray: [],
+    stylesObject: {},
     color: {
       textcolor: "black",
       backgroundColor: "",
@@ -16,20 +17,18 @@ export default new Vuex.Store({
       state.color = payload;
     },
     updateStyles(state, payload) {
-      if (!state.styleArray.includes(payload)) {
-        state.styleArray.push(payload);
-      }
+      state.stylesObject = payload;
     },
     clearStyles(state) {
-      state.styleArray = [];
+      state.stylesObject = {};
     },
   },
   actions: {
     changeColor({ commit }, colors) {
       commit("changeColor", colors);
     },
-    updateStyles({ commit }, command) {
-      commit("updateStyles", command);
+    updateStyles({ commit }, commands) {
+      commit("updateStyles", commands);
     },
     clearStyles({ commit }) {
       commit("clearStyles");
