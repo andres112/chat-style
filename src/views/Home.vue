@@ -42,30 +42,6 @@ export default {
       if (this.voice) {
         const objectCommand = getObjectCommand(lastSentence);
         console.log(objectCommand);
-        //TODO: Remove
-        // if (array.some((x) => this.isColor(x))) {
-        //   const [textColor, backgroundColor = ""] = array.filter((x) =>
-        //     this.isColor(x.toLowerCase())
-        //   );
-        //   this.changeColor({ textColor, backgroundColor });
-        // }
-        // if (lastSentence.includes("norma")) {
-        //   this.clearStyles();
-        //   this.changeColor("black");
-        //   return;
-        // }
-        // if (lastSentence.includes("strong")) {
-        //   this.updateStyles("bold");
-        // }
-        // if (lastSentence.includes("talic")) {
-        //   this.updateStyles("italic");
-        // }
-        // if (lastSentence.includes("nderline")) {
-        //   this.updateStyles("underline");
-        // }
-        // if (lastSentence.includes("strike")) {
-        //   this.updateStyles("strike");
-        // }
         this.updateStyles(objectCommand);
       }
     },
