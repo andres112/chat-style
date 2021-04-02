@@ -4,7 +4,7 @@
       <v-toolbar color="light-green darken-2" dark>
         <v-toolbar-title class="headline">Style Me</v-toolbar-title>
         <v-spacer></v-spacer>
-        <router-link to="/login">
+        <router-link to="/user">
           <v-btn icon>
             <v-icon>fas fa-sign-in-alt</v-icon>
           </v-btn>
