@@ -1,9 +1,15 @@
 import { firebase, db, auth } from "@/firebase.js";
+import { User } from "@/helpers";
 
 const state = {
+  user: {},
   isRegister: false,
 };
-const mutations = {};
+const mutations = {
+  setUser(state, payload) {
+    state.user = payload;
+  },
+};
 const actions = {
   //Login section
   // email and password Registration
@@ -14,12 +20,12 @@ const actions = {
         payload.password
       );
 
-      const user = {
-        uid: res.user?.uid,
-        name: payload.name,
-        email: res.user?.email,
-        photo: null,
-      };
+      // after create user update displayname in firebase
+      await dispatch("updateUser", {
+        displayName: payload.name,
+      });
+
+      const user = await User(res);
       dispatch("createUserDB", user);
     } catch (error) {
       console.log(error.message);
@@ -35,10 +41,9 @@ const actions = {
         payload.email,
         payload.password
       );
-      const user_res = {
-        email: res.user.email,
-        uid: res.user.uid,
-      };
+      console.log(res);
+      const user = await User(res);
+      dispatch("setUser", user); // set user in application when login successfuly
     } catch (error) {
       console.log(error.message);
       alert(error.message);
@@ -61,12 +66,8 @@ const actions = {
   async loginWithPopup({ dispatch }, provider) {
     try {
       const res = await firebase.auth().signInWithPopup(provider);
-      const user = {
-        uid: res.user?.uid,
-        name: res.user?.displayName,
-        email: res.user?.email,
-        photo: res.user?.photoURL,
-      };
+      const user = await User(res);
+      dispatch("setUser", user); // set user in application when login successfuly
       dispatch("createUserDB", user);
     } catch (error) {
       console.log(error.message);
@@ -80,6 +81,21 @@ const actions = {
       .doc(user.uid)
       .set(user);
     console.log("User storaged in database", user);
+  },
+
+  // Update user profile in firebase
+  async updateUser({ commit }, user) {
+    const currentUser = firebase.auth().currentUser;
+    try {
+      await currentUser.updateProfile(user);
+    } catch (error) {
+      console.log(error.message);
+    }
+  },
+
+  // Set current user
+  setUser({ commit }, user) {
+    commit("setUser", user);
   },
 };
 
