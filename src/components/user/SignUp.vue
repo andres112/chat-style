@@ -48,7 +48,7 @@
         @input="$v.rpass.$touch()"
         @blur="$v.rpass.$touch()"
       ></v-text-field>
-      <v-btn type="submit" title="login" color="light-green darken-2" outlined>
+      <v-btn type="submit" title="login" color="light-green darken-2" outlined :disabled="$v.$invalid">
         Submit
       </v-btn>
     </form>

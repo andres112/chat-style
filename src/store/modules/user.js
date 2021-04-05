@@ -1,3 +1,4 @@
+import router from "@/router";
 import { firebase, db, auth } from "@/firebase.js";
 import { User } from "@/helpers";
 
@@ -41,7 +42,6 @@ const actions = {
         payload.email,
         payload.password
       );
-      console.log(res);
       const user = await User(res);
       dispatch("setUser", user); // set user in application when login successfuly
     } catch (error) {
@@ -65,7 +65,7 @@ const actions = {
   // Popup for user autentication with OAuth provider
   async loginWithPopup({ dispatch }, provider) {
     try {
-      const res = await firebase.auth().signInWithPopup(provider);
+      const res = await auth.signInWithPopup(provider);
       const user = await User(res);
       dispatch("setUser", user); // set user in application when login successfuly
       dispatch("createUserDB", user);
@@ -85,12 +85,18 @@ const actions = {
 
   // Update user profile in firebase
   async updateUser({ commit }, user) {
-    const currentUser = firebase.auth().currentUser;
+    const currentUser = auth.currentUser;
     try {
       await currentUser.updateProfile(user);
     } catch (error) {
       console.log(error.message);
     }
+  },
+
+  signOut({ commit }) {
+    auth.signOut();
+    commit("setUser", {});
+    router.push("/user");
   },
 
   // Set current user
