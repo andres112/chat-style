@@ -4,12 +4,12 @@ import "firebase/firestore";
 import "firebase/storage";
 
 var firebaseConfig = {
-  apiKey: process.env.VUE_APP_FIREBASE_APIKEY,
+  apiKey: "AIzaSyA8PdcBVGAsFt2JfFvtK9P3R_u_3ipzdc4",
   authDomain: "styleme-59e9a.firebaseapp.com",
   projectId: "styleme-59e9a",
   storageBucket: "styleme-59e9a.appspot.com",
   messagingSenderId: "899713937866",
-  appId: process.env.VUE_APP_FIREBASE_APIID,
+  appId: "1:899713937866:web:b15ec46abad62479365f33",
 };
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);

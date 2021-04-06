@@ -28,19 +28,18 @@ export default {
   }),
   methods: {
     ...mapActions(["updateStyles", "clearStyles", "changeColor"]),
-    onEnd({ lastSentence, transcription }) {
-      this.lastCommand = lastSentence;
-      const array = lastSentence.split(" "); //TODO: Remove
-      if (lastSentence.includes("start")) {
+    onEnd({ transcription }) {
+      this.lastCommand = transcription;
+      if (transcription.includes("start")) {
         this.voice = true;
         return;
       }
-      if (lastSentence.includes("stop")) {
+      if (transcription.includes("stop")) {
         this.voice = false;
         return;
       }
       if (this.voice) {
-        const objectCommand = getObjectCommand(lastSentence);
+        const objectCommand = getObjectCommand(transcription);
         console.log(objectCommand);
         this.updateStyles(objectCommand);
       }

@@ -62,8 +62,11 @@ export default {
       }
     },
     stylesObject() {
-      const newStyle = this.stylesObject;
-
+      const currentPos = this.editorInstance.getSelection();
+      const currentStyle = this.editorInstance.getFormat(currentPos);
+      // merge current style with new one
+      const newStyle = { ...currentStyle, ...this.stylesObject };
+      
       // Verify if text to modify is a range selection
       if (this.rangeSelected?.length > 0) {
         this.editorInstance.formatText(
@@ -130,6 +133,7 @@ export default {
       } else {
         this.rangeSelected = {};
       }
+      console.log(this.rangeSelected);
     },
   },
 };

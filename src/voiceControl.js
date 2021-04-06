@@ -1,9 +1,9 @@
 export const getObjectCommand = function(rawCommand) {
   let commands = {};
-  const array = rawCommand.split(" ");
+  const array = rawCommand.toLowerCase().trim().split(" ");
   if (array.some((x) => isColor(x))) {
     const [textColor, backgroundColor = ""] = array.filter((x) =>
-      isColor(x.toLowerCase())
+      isColor(x)
     );
     commands["color"] = textColor;
     commands["background"] = backgroundColor;
