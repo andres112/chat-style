@@ -1,14 +1,9 @@
 <template>
   <div class="simple-editor">
+    <div class="editor-node mx-2" ref="editorNode"></div>
     <v-container fluid d-inline-flex>
-      <pre>{{ stylesObject }}</pre>
+      <pre>{{ newStyle }}</pre>
     </v-container>
-
-    <div
-      class="editor-node mx-5"
-      ref="editorNode"
-      style="border:1px solid; border-radius:16px"
-    ></div>
   </div>
 </template>
 
@@ -41,6 +36,7 @@ export default {
         { command: "underline", value: "underline" },
         { command: "strike", value: "strike" },
       ],
+      newStyle: {},
       editorContent: null,
       editorInstance: null,
       editorOpts: {
@@ -65,14 +61,14 @@ export default {
       const currentPos = this.editorInstance.getSelection();
       const currentStyle = this.editorInstance.getFormat(currentPos);
       // merge current style with new one
-      const newStyle = { ...currentStyle, ...this.stylesObject };
-      
+      this.newStyle = { ...currentStyle, ...this.stylesObject };
+
       // Verify if text to modify is a range selection
       if (this.rangeSelected?.length > 0) {
         this.editorInstance.formatText(
           this.rangeSelected.index,
           this.rangeSelected.length,
-          newStyle
+          this.newStyle
         );
         return;
       }
@@ -80,8 +76,8 @@ export default {
       // When there is not range selected
       const aux = this;
       Object.keys(DEFAULT_COMMANDS).forEach(function(command) {
-        if (newStyle.hasOwnProperty(command)) {
-          aux.editorInstance.format(command, newStyle[command]);
+        if (aux.newStyle.hasOwnProperty(command)) {
+          aux.editorInstance.format(command, aux.newStyle[command]);
           return;
         }
         aux.editorInstance.format(command, DEFAULT_COMMANDS[command]);
@@ -98,11 +94,11 @@ export default {
     this.editorInstance.off("text-change");
   },
   computed: {
-    ...mapState(["selectionFlag", "stylesObject"]),
+    ...mapState({ stylesObject: (state) => state.text.stylesObject }),
   },
 
   methods: {
-    ...mapActions(["clearStyles"]),
+    ...mapActions({ updateMessage: "text/updateMessage" }),
     initializeEditor() {
       // Set initial content that's going to be picked up by Quill
       this.$refs.editorNode.innerHTML = this.value;
@@ -121,11 +117,13 @@ export default {
       // Whenever we change anything, update this.editorContent
       this.setEditorContent();
       this.$emit("input", this.editorContent);
+      this.rangeSelected = {}; // remove previous range seleceted when content change
     },
     setEditorContent() {
       this.editorContent = this.editorInstance.getText().trim()
         ? this.editorInstance.root.innerHTML
         : "";
+      this.updateMessage(this.editorContent);
     },
     onSelectionChanged(range) {
       if (range) {
@@ -138,3 +136,13 @@ export default {
   },
 };
 </script>
+<style scoped>
+.editor-node {
+  color: black;
+  border-color: #616161 !important;
+  border: 1px solid;
+  border-radius: 20px;
+  max-height: 75px;
+  overflow-y: hidden;
+}
+</style>

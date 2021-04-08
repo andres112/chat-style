@@ -5,7 +5,9 @@
         <v-toolbar-title class="headline">Style Me</v-toolbar-title>
         <v-spacer></v-spacer>
         <div v-if="user.uid">
-          <span class="subtitle-1 mr-1" v-if="$vuetify.breakpoint.smAndUp">{{ user.name }}</span>
+          <span class="subtitle-1 mr-2" v-if="$vuetify.breakpoint.smAndUp">{{
+            user.name
+          }}</span>
           <v-avatar size="36px" class="mr-2">
             <img v-if="user.photo" alt="Avatar" :src="user.photo" />
             <v-icon v-else>fas fa-user</v-icon>
@@ -38,3 +40,8 @@ export default {
   },
 };
 </script>
+<style>
+p {
+  margin-bottom: 1px !important;
+}
+</style>
