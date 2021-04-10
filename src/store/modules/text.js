@@ -8,15 +8,15 @@ const mutations = {
   },
   updateMessage(state, payload) {
     state.message = payload;
-  }
+  },
 };
 const actions = {
   updateStyles({ commit }, commands) {
     commit("updateStyles", commands);
   },
   updateMessage({ commit }, message) {
-    commit("updateMessage", message)
-  }
+    commit("updateMessage", message);
+  },
 };
 
 export default {

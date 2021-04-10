@@ -6,10 +6,12 @@ import vuetify from "./plugins/vuetify";
 import "@fortawesome/fontawesome-free/css/all.css";
 import "@fortawesome/fontawesome-free/js/all";
 import { User } from "@/helpers";
+import VueChatScroll from "vue-chat-scroll";
 
 import { auth } from "@/firebase"; // get authentication features from firebase
 
 Vue.config.productionTip = false;
+Vue.use(VueChatScroll);
 
 auth.onAuthStateChanged(function(user) {
   if (user) {

@@ -24,6 +24,8 @@ const actions = {
       // after create user update displayname in firebase
       await dispatch("updateUser", {
         displayName: payload.name,
+        photoURL:
+          "https://firebasestorage.googleapis.com/v0/b/styleme-59e9a.appspot.com/o/user-solid.png?alt=media&token=ac1e6e88-5dba-4b5b-b9cd-42d5235fc347",
       });
 
       const user = await User(res);

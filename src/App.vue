@@ -9,8 +9,7 @@
             user.name
           }}</span>
           <v-avatar size="36px" class="mr-2">
-            <img v-if="user.photo" alt="Avatar" :src="user.photo" />
-            <v-icon v-else>fas fa-user</v-icon>
+            <img alt="Avatar" :src="user.photo" />
           </v-avatar>
           <v-btn icon @click="closeSession()">
             <v-icon>fas fa-sign-out-alt</v-icon>

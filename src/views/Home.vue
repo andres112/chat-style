@@ -2,56 +2,62 @@
   <v-layout>
     <v-flex>
       <v-card>
-        <!-- <v-card-text>
-          <h3>Welcome {{ user.name }}</h3>
-        </v-card-text> -->
-        <v-card-text class="text-sm-right">
-          <v-row class="d-flex justify-end">
-            <v-card max-width="374" elevation="2" shaped class="text-sm-left">
-              <v-list>
-                <v-list-item>
-                  <v-list-item-avatar>
-                    <v-img v-if="user.photo" :src="user.photo"></v-img>
-                    <v-icon v-else>fas fa-user</v-icon>
-                  </v-list-item-avatar>
+        <!-- Messages section -->
+        <v-card-text class="chat-window" v-chat-scroll>
+          <v-card-text
+            class="text-sm-right"
+            v-for="(msg, index) in messages"
+            :key="index"
+          >
+            <v-row class="d-flex justify-end">
+              <v-card :max-width="chatWidth" elevation="2" shaped class="text-sm-left mb-2">
+                <v-list>
+                  <v-list-item>
+                    <v-list-item-avatar>
+                      <v-img :src="msg.photo"></v-img>
+                    </v-list-item-avatar>
 
-                  <v-list-item-content>
-                    <v-list-item-title class="text-caption text-right">
-                      timestamp
-                    </v-list-item-title>
-                    <v-list-item-subtitle
-                      style="white-space: pre-wrap;"
-                      v-html="message"
-                    ></v-list-item-subtitle>
-                  </v-list-item-content>
-                </v-list-item>
-              </v-list>
-            </v-card>
-          </v-row>
+                    <v-list-item-content>
+                      <v-list-item-title
+                        class="text-caption text-right mb-2 grey--text"
+                      >
+                        {{ msg.date }}
+                      </v-list-item-title>
+                      <v-list-item-subtitle
+                        style="white-space: pre-wrap;"
+                        v-html="msg.message"
+                      ></v-list-item-subtitle>
+                    </v-list-item-content>
+                  </v-list-item>
+                </v-list>
+              </v-card>
+            </v-row>
+          </v-card-text>
         </v-card-text>
+
+        <!-- Message box and speech button section -->
         <v-divider class="mx-2"></v-divider>
         <v-card-text>
-          <v-form @submit.prevent="sendMessage({ msg: message })">
-            <v-row no-gutters class="mt-3" align-center>
-              <v-col cols="1" class="text-sm-right">
+          <v-form @submit.prevent="send({ msg: message })">
+            <v-row no-gutters class="mt-3">
+              <v-col cols="1" class=" text-left text-sm-right">
                 <speech @onTranscriptionEnd="onEnd" :isListening="voice" />
               </v-col>
               <v-col cols="10">
                 <SimpleEditor v-model="content" />
                 <h5>{{ lastCommand }}</h5>
               </v-col>
-              <v-btn
-                fab
-                icon
-                small
-                color="light-green darken-2"
-                dark
-                type="submit"
-                cols="1"
-                :disabled="!message"
-              >
-                <v-icon>fas fa-paper-plane</v-icon>
-              </v-btn>
+              <v-col cols="1">
+                <v-btn
+                  large
+                  icon
+                  color="light-green darken-2"
+                  type="submit"
+                  :disabled="!message"
+                >
+                  <v-icon>fas fa-paper-plane</v-icon>
+                </v-btn>
+              </v-col>
             </v-row>
           </v-form>
         </v-card-text>
@@ -79,15 +85,34 @@ export default {
     voice: false,
     lastCommand: "",
   }),
+  created() {
+    this.snapshotMessages();
+  },
   computed: {
     ...mapState({
       user: (state) => state.user.user,
       message: (state) => state.text.message,
+      messages: (state) => state.chat.messages,
     }),
+    chatWidth() {
+      switch (this.$vuetify.breakpoint.name) {
+        case "xs":
+          return 250;
+        case "sm":
+          return 350;
+        case "md":
+          return 400;
+        default:
+          return 450;
+      }
+    },
   },
   methods: {
     ...mapActions({
       updateStyles: "text/updateStyles",
+      updateMessage: "text/updateMessage",
+      sendMessage: "chat/sendMessage",
+      snapshotMessages: "chat/snapshotMessages",
     }),
     onEnd({ transcription }) {
       this.lastCommand = transcription;
@@ -106,14 +131,17 @@ export default {
         this.updateStyles(objectCommand);
       }
     },
-    sendMessage(msg) {
+    send(msg) {
       console.log(msg);
+      this.sendMessage();
+      this.updateMessage(null);
     },
   },
 };
 </script>
-<styl scoped>
-.v-chip .v-chip__content {
-  height: auto !important;
+<style scoped>
+.chat-window {
+  overflow: auto;
+  height: 75vh;
 }
-</styl>
+</style>

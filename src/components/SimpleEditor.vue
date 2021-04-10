@@ -3,6 +3,7 @@
     <div class="editor-node mx-2" ref="editorNode"></div>
     <v-container fluid d-inline-flex>
       <pre>{{ newStyle }}</pre>
+      <pre>{{ editorContent }}</pre>
     </v-container>
   </div>
 </template>
@@ -83,6 +84,12 @@ export default {
         aux.editorInstance.format(command, DEFAULT_COMMANDS[command]);
       });
     },
+
+    message() {
+      if (!this.message) {
+        this.editorInstance.setText("");
+      }
+    },
   },
 
   mounted() {
@@ -94,7 +101,10 @@ export default {
     this.editorInstance.off("text-change");
   },
   computed: {
-    ...mapState({ stylesObject: (state) => state.text.stylesObject }),
+    ...mapState({
+      stylesObject: (state) => state.text.stylesObject,
+      message: (state) => state.text.message,
+    }),
   },
 
   methods: {
