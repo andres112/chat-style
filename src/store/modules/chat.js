@@ -18,8 +18,9 @@ const actions = {
   async sendMessage({ rootState }) {
     const messageObject = {
       message: rootState.text.message,
-      name: rootState.user.user.name,
-      photo: rootState.user.user.photo,
+      user_name: rootState.user.user.name,
+      user_uid: rootState.user.user.uid,
+      user_photo: rootState.user.user.photo,
       date: Date.now(),
     };
     try {

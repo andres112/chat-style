@@ -5,16 +5,22 @@
         <!-- Messages section -->
         <v-card-text class="chat-window" v-chat-scroll>
           <v-card-text
-            class="text-sm-right"
+            class="text-xs-left"
             v-for="(msg, index) in messages"
             :key="index"
           >
-            <v-row class="d-flex justify-end">
-              <v-card :max-width="chatWidth" elevation="2" shaped class="text-sm-left mb-2">
+            <v-row class="d-flex" :class="msg.user_uid == user.uid ? 'justify-end' : 'justify-start'">
+              <v-card
+                :max-width="chatWidth"
+                elevation="2"
+                shaped
+                class="text-xs-left mb-2"
+                block
+              >
                 <v-list>
                   <v-list-item>
                     <v-list-item-avatar>
-                      <v-img :src="msg.photo"></v-img>
+                      <v-img :src="msg.user_photo"></v-img>
                     </v-list-item-avatar>
 
                     <v-list-item-content>
