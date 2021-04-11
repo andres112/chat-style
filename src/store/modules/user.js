@@ -4,11 +4,15 @@ import { User } from "@/helpers";
 
 const state = {
   user: {},
+  users: [],
   isRegister: false,
 };
 const mutations = {
   setUser(state, payload) {
     state.user = payload;
+  },
+  setAllUsers(state, payload) {
+    state.users = payload;
   },
 };
 const actions = {
@@ -104,6 +108,19 @@ const actions = {
   // Set current user
   setUser({ commit }, user) {
     commit("setUser", user);
+  },
+
+  //Get all users registered in Firebaseapp
+  async getAllUsers({ commit, state }) {
+    try {
+      const res = await db.collection("user").get();
+      const userList = res.docs
+        .map((x) => x.data())
+        .filter((u) => u.uid != state.user.uid);
+      commit("setAllUsers", userList);
+    } catch (error) {
+      console.log(error.message);
+    }
   },
 };
 

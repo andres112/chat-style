@@ -1,21 +1,8 @@
 <template>
   <v-app>
     <v-main>
-      <v-toolbar color="light-green darken-2" dark>
-        <v-toolbar-title class="headline">Style Me</v-toolbar-title>
-        <v-spacer></v-spacer>
-        <div v-if="user.uid">
-          <span class="subtitle-1 mr-2" v-if="$vuetify.breakpoint.smAndUp">{{
-            user.name
-          }}</span>
-          <v-avatar size="36px" class="mr-2">
-            <img alt="Avatar" :src="user.photo" />
-          </v-avatar>
-          <v-btn icon @click="closeSession()">
-            <v-icon>fas fa-sign-out-alt</v-icon>
-          </v-btn>
-        </div>
-      </v-toolbar>
+      <top-nav></top-nav>
+      <sidebar-nav></sidebar-nav>
       <v-container>
         <router-view></router-view>
       </v-container>
@@ -24,19 +11,13 @@
 </template>
 
 <script>
-import { mapState, mapActions } from "vuex";
+import SidebarNav from './components/SidebarNav.vue';
+import TopNav from './components/TopNav.vue';
+
 
 export default {
-  name: "App",
-  computed: {
-    ...mapState({ user: (state) => state.user.user }),
-  },
-  methods: {
-    ...mapActions({ signOut: "user/signOut" }),
-    closeSession() {
-      this.signOut();
-    },
-  },
+  components: { TopNav, SidebarNav },
+  name: "App",  
 };
 </script>
 <style>

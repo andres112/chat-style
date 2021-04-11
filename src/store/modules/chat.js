@@ -3,6 +3,7 @@ import moment from "moment";
 
 const state = {
   messages: [],
+  chats: [], // state for identify all the chats associated to current user
 };
 const mutations = {
   setMessages(state, payload = null) {
