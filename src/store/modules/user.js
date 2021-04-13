@@ -6,6 +6,7 @@ const state = {
   user: {},
   users: [],
   isRegister: false,
+  userChats: [],
 };
 const mutations = {
   setUser(state, payload) {
@@ -13,6 +14,13 @@ const mutations = {
   },
   setAllUsers(state, payload) {
     state.users = payload;
+  },
+  setUserChats(state, chat = null) {
+    if (chat) {
+      state.userChats.push(chat);
+      return;
+    }
+    state.userChats = [];
   },
 };
 const actions = {
@@ -118,6 +126,18 @@ const actions = {
         .map((x) => x.data())
         .filter((u) => u.uid != state.user.uid);
       commit("setAllUsers", userList);
+    } catch (error) {
+      console.log(error.message);
+    }
+  },
+
+  // Get all the chats id associted to the user list
+  async getChatList({ commit, state }) {
+    commit("setUserChats", null);
+    try {
+      const ref = db.collection("chat_index");
+      const list = await ref.where("users", "array-contains", state.user.uid);
+      list.forEach((x) => commit("setUserChats", x));
     } catch (error) {
       console.log(error.message);
     }

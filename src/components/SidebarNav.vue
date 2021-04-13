@@ -1,19 +1,22 @@
 <template>
   <v-navigation-drawer
-    color="light-green lighten-3"
+    color="light-green lighten-5"
     :value="sidebarOn"
     clipped
     stateless
     :app="!$vuetify.breakpoint.smAndDown"
     :absolute="$vuetify.breakpoint.smAndDown"
   >
-    <v-list nav dense>
-      <v-list-item v-for="user in userList" :key="user.uid" link>
-        <v-list-item-avatar>
-          <img :src="user.photo" />
-        </v-list-item-avatar>
-        <v-list-item-title>{{ user.name }}</v-list-item-title>
-      </v-list-item>
+    <v-list nav shaped>
+      <v-subheader>Contacts</v-subheader>
+      <v-list-item-group v-model="itemSelected" active-class="green--text">
+        <v-list-item v-for="user in userList" :key="user.uid" link>
+          <v-list-item-avatar>
+            <img :src="user.photo" />
+          </v-list-item-avatar>
+          <v-list-item-title>{{ user.name }}</v-list-item-title>
+        </v-list-item>
+      </v-list-item-group>
     </v-list>
   </v-navigation-drawer>
 </template>
@@ -23,7 +26,9 @@ import { mapState, mapActions } from "vuex";
 
 export default {
   data() {
-    return {};
+    return {
+      itemSelected: null,
+    };
   },
   created() {
     this.getAllUsers();
@@ -35,7 +40,16 @@ export default {
     }),
   },
   methods: {
-    ...mapActions({ getAllUsers: "user/getAllUsers" }),
+    ...mapActions({
+      getAllUsers: "user/getAllUsers",
+      setDestination: "chat/setDestination",
+    }),
+  },
+  watch: {
+    itemSelected() {
+      const userSelected = this.userList[this.itemSelected];
+      this.setDestination(userSelected);
+    },
   },
 };
 </script>

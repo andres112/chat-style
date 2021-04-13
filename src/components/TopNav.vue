@@ -1,6 +1,6 @@
 <template>
   <v-app-bar color="light-green darken-2" dark clipped-left app>
-    <v-app-bar-nav-icon class="mx-1" icon x-large @click.stop="hideSidebar">
+    <v-app-bar-nav-icon class="mx-1" icon x-large @click.stop="hideSidebar" v-if="user.uid">
       <v-icon>fas fa-users</v-icon>
     </v-app-bar-nav-icon>
     <v-toolbar-title class="headline">Style Me</v-toolbar-title>

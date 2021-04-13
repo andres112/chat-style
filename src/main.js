@@ -17,6 +17,7 @@ auth.onAuthStateChanged(function(user) {
   if (user) {
     const res = User({ user: user });
     store.dispatch("user/setUser", res);
+    store.dispatch("user/getChatList");
     router.push("/")
   }
   new Vue({
