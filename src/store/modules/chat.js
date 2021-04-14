@@ -1,6 +1,7 @@
 import { db } from "@/firebase.js";
 import { nanoid } from "nanoid";
 import moment from "moment";
+import store from "@/store";
 
 const state = {
   messages: [],
@@ -47,30 +48,37 @@ const actions = {
         dispatch("createChatIndex", content);
       }
       const res = await db
-        .collection("chats")
-        .doc(chat.chat_id ?? chat_id)
+        .collection(chat?.chat_id ?? chat_id)
         .add(messageObject);
     } catch (error) {
       console.log(error.message);
     }
   },
-  snapshotMessages({ commit }) {
-    db.collection("chats")
-      .orderBy("date", "desc")
-      .limit(10)
-      .onSnapshot((querySnapshot) => {
-        commit("setMessages");
-        querySnapshot.forEach((msg) => {
-          commit("setMessages", msg.data());
+  snapshotMessages({ commit, rootState, state }) {
+    const users = [rootState.user.user.uid, state.destination?.uid];
+    const chatObject = rootState.user.userChats.find((x) =>
+      users.every((u) => x.users.includes(u))
+    );
+    commit("setMessages");
+    if (chatObject?.chat_id) {
+      db.collection(chatObject.chat_id)
+        .orderBy("date", "desc")
+        .limit(10)
+        .onSnapshot((querySnapshot) => {
+          commit("setMessages");
+          querySnapshot.forEach((msg) => {
+            commit("setMessages", msg.data());
+          });
         });
-      });
+    }
   },
   async createChatIndex({}, content) {
     try {
       const res = await db
         .collection("chat_index")
-        .doc(chatId)
-        .add(content);
+        .doc(content.chat_id)
+        .set(content);
+      store.dispatch("user/getChatList"); // refresh the chat list for current user
     } catch (error) {
       console.log(error.message);
     }

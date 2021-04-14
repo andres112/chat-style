@@ -15,7 +15,7 @@
             <v-row
               class="d-flex"
               :class="
-                msg.user_uid == user.uid ? 'justify-end' : 'justify-start'
+                msg.source.user_uid == user.uid ? 'justify-end' : 'justify-start'
               "
             >
               <v-card
@@ -28,7 +28,7 @@
                 <v-list>
                   <v-list-item>
                     <v-list-item-avatar>
-                      <v-img :src="msg.user_photo"></v-img>
+                      <v-img :src="msg.source.user_photo"></v-img>
                     </v-list-item-avatar>
 
                     <v-list-item-content>
@@ -123,8 +123,8 @@ export default {
     ...mapActions({
       updateStyles: "text/updateStyles",
       updateMessage: "text/updateMessage",
-      sendMessage: "chat/sendMessage",
-      snapshotMessages: "chat/snapshotMessages",
+      sendMessage: "chat/sendMessage",   
+      snapshotMessages: "chat/snapshotMessages",   
     }),
     onEnd({ transcription }) {
       this.lastCommand = transcription;

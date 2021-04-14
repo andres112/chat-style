@@ -43,12 +43,16 @@ export default {
     ...mapActions({
       getAllUsers: "user/getAllUsers",
       setDestination: "chat/setDestination",
+      snapshotMessages: "chat/snapshotMessages",
+      toogleSidebar: "settings/toogleSidebar",
     }),
   },
   watch: {
-    itemSelected() {
-      const userSelected = this.userList[this.itemSelected];
+    itemSelected(newValue, oldValue) {
+      const userSelected = this.userList[newValue ?? oldValue];
       this.setDestination(userSelected);
+      this.snapshotMessages();
+      this.toogleSidebar();
     },
   },
 };

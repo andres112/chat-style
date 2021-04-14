@@ -42,6 +42,7 @@ const actions = {
 
       const user = await User(res);
       dispatch("createUserDB", user);
+      dispatch("signOut");
     } catch (error) {
       console.log(error.message);
       alert(error.message);
@@ -132,12 +133,18 @@ const actions = {
   },
 
   // Get all the chats id associted to the user list
-  async getChatList({ commit, state }) {
+  getChatList({ commit, state }) {
     commit("setUserChats", null);
     try {
       const ref = db.collection("chat_index");
-      const list = await ref.where("users", "array-contains", state.user.uid);
-      list.forEach((x) => commit("setUserChats", x));
+      const list = ref
+        .where("users", "array-contains", state.user.uid)
+        .onSnapshot((querySnapshot) => {
+          commit("setMessages");
+          querySnapshot.forEach((x) => {
+            commit("setUserChats", x.data());
+          });
+        });
     } catch (error) {
       console.log(error.message);
     }
