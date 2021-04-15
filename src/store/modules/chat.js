@@ -1,7 +1,6 @@
 import { db } from "@/firebase.js";
 import { nanoid } from "nanoid";
 import moment from "moment";
-import store from "@/store";
 
 const state = {
   messages: [],
@@ -34,7 +33,6 @@ const actions = {
       destination_uid: state.destination.uid,
     };
     try {
-      // TODO check if destination exist in chatlist fot current users
       const chat = rootState.user.userChats.find((x) =>
         x.users.includes(state.destination.uid)
       );
@@ -72,14 +70,14 @@ const actions = {
         });
     }
   },
-  async createChatIndex({}, content) {
+  async createChatIndex({ dispatch }, content) {
     try {
-      const res = await db
-        .collection("chat_index")
-        .doc(content.chat_id)
-        .set(content);
-      store.dispatch("user/getChatList"); // refresh the chat list for current user
-    } catch (error) {
+          const res = await db
+            .collection("chat_index")
+            .doc(content.chat_id)
+            .set(content);
+          dispatch("user/getChatList", null, { root: true }); // refresh the chat list for current user
+        } catch (error) {
       console.log(error.message);
     }
   },

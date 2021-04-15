@@ -108,9 +108,12 @@ const actions = {
     }
   },
 
-  signOut({ commit }) {
+  signOut({ commit, rootState, dispatch }) {
     auth.signOut();
     commit("setUser", {});
+    if (rootState.settings.sidebarOn) {
+      dispatch("settings/toogleSidebar", null, { root: true });
+    }
     router.push("/user");
   },
 
@@ -133,17 +136,17 @@ const actions = {
   },
 
   // Get all the chats id associted to the user list
-  getChatList({ commit, state }) {
-    commit("setUserChats", null);
+  getChatList({ commit, state, dispatch }) {
     try {
       const ref = db.collection("chat_index");
       const list = ref
         .where("users", "array-contains", state.user.uid)
         .onSnapshot((querySnapshot) => {
-          commit("setMessages");
+          commit("setUserChats");
           querySnapshot.forEach((x) => {
             commit("setUserChats", x.data());
           });
+          dispatch("chat/snapshotMessages", null, { root: true }); // refresh the messages for current user and destination
         });
     } catch (error) {
       console.log(error.message);
