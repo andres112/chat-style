@@ -12,6 +12,9 @@
 import Quill from "quill";
 import { mapState, mapActions } from "vuex";
 
+// emoji-translator.js library as feature for editor
+import Translator from "@/assets/emoji-translator.js";
+
 const DEFAULT_COMMANDS = {
   bold: false,
   italic: false,
@@ -47,6 +50,7 @@ export default {
         theme: "bubble",
       },
       rangeSelected: {},
+      emoji_traslator: null,
     };
   },
 
@@ -64,13 +68,23 @@ export default {
       // merge current style with new one
       this.newStyle = { ...currentStyle, ...this.stylesObject };
 
+      let { index, length } = { ...this.rangeSelected };
+
       // Verify if text to modify is a range selection
       if (this.rangeSelected?.length > 0) {
-        this.editorInstance.formatText(
-          this.rangeSelected.index,
-          this.rangeSelected.length,
-          this.newStyle
-        );
+        // before to apply the new style, validate if emoji command
+        if (this.newStyle?.emoji) {
+          const selectedText = this.editorInstance.getText(index, length);
+          // contains the text with emojis
+          const emojiText = this.emoji_traslator.translate(selectedText);
+
+          this.editorInstance.deleteText(index, length);
+          this.editorInstance.insertText(index, emojiText);
+          // calculate the new length after emoji translation
+          length = emojiText.length;
+          console.log(length);
+        }
+        this.editorInstance.formatText(index, length, this.newStyle);
         return;
       }
 
@@ -94,6 +108,8 @@ export default {
 
   mounted() {
     this.initializeEditor();
+    var emojiData = require("@/assets/emoji-data.json");
+    this.emoji_traslator = new Translator(emojiData);
   },
 
   beforeDestroy() {

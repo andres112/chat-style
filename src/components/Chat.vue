@@ -84,7 +84,7 @@
 import SimpleEditor from "@/components/SimpleEditor";
 import Speech from "@/components/Speech";
 import { mapActions, mapState } from "vuex";
-import { getObjectCommand } from "@/voiceControl.js";
+import { getObjectCommand } from "@/assets/voiceControl.js";
 
 export default {
   data: () => ({

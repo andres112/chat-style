@@ -1,10 +1,11 @@
 export const getObjectCommand = function(rawCommand) {
   let commands = {};
-  const array = rawCommand.toLowerCase().trim().split(" ");
+  const array = rawCommand
+    .toLowerCase()
+    .trim()
+    .split(" ");
   if (array.some((x) => isColor(x))) {
-    const [textColor, backgroundColor = ""] = array.filter((x) =>
-      isColor(x)
-    );
+    const [textColor, backgroundColor = ""] = array.filter((x) => isColor(x));
     commands["color"] = textColor;
     commands["background"] = backgroundColor;
   }
@@ -16,6 +17,7 @@ export const getObjectCommand = function(rawCommand) {
       strike: false,
       color: "black",
       background: "",
+      emoji: false,
     };
     return commands;
   }
@@ -30,6 +32,9 @@ export const getObjectCommand = function(rawCommand) {
   }
   if (rawCommand.includes("strike")) {
     commands["strike"] = true;
+  }
+  if (rawCommand.includes("moji")) {
+    commands["emoji"] = true;
   }
   return commands;
 };
