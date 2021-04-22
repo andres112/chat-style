@@ -63,6 +63,7 @@ export default {
       }
     },
     stylesObject() {
+      const aux = this;
       const currentPos = this.editorInstance.getSelection();
       const currentStyle = this.editorInstance.getFormat(currentPos);
       // merge current style with new one
@@ -74,22 +75,36 @@ export default {
       if (this.rangeSelected?.length > 0) {
         // before to apply the new style, validate if emoji command
         if (this.newStyle?.emoji) {
-          const selectedText = this.editorInstance.getText(index, length);
+          // get the multiple styles in selected text
+          const multypleStyles = this.getMultipleStyles(index, length);
           // contains the text with emojis
-          const emojiText = this.emoji_traslator.translate(selectedText);
+          let emojiText = [];
+          multypleStyles.forEach((x) => {
+            const selectedText = aux.editorInstance.getText(x.index, x.length);
+            emojiText.push(aux.emoji_traslator.translate(selectedText));
+          });
 
-          this.editorInstance.deleteText(index, length);
-          this.editorInstance.insertText(index, emojiText);
-          // calculate the new length after emoji translation
-          length = emojiText.length;
-          console.log(length);
+          // control for the index variation
+          let diff = 0;
+          multypleStyles.forEach((item, id) => {
+            item.index = item.index - diff;
+            aux.editorInstance.deleteText(item.index, item.length);
+            aux.editorInstance.insertText(item.index, emojiText[id]);
+            // calculate the new length after emoji translation
+            const newlength = emojiText[id].length;
+            // asing style to block of text
+            aux.editorInstance.formatText(item.index, newlength, item);
+            diff += item.length - newlength;
+          });
+          return;
+
+          // console.log(length);
         }
         this.editorInstance.formatText(index, length, this.newStyle);
         return;
       }
 
       // When there is not range selected
-      const aux = this;
       Object.keys(DEFAULT_COMMANDS).forEach(function(command) {
         if (aux.newStyle.hasOwnProperty(command)) {
           aux.editorInstance.format(command, aux.newStyle[command]);
@@ -158,6 +173,45 @@ export default {
         this.rangeSelected = {};
       }
       console.log(this.rangeSelected);
+    },
+
+    // Get all the formats in selected text
+    getMultipleStyles(index, length) {
+      let multipleStyles = [];
+      let indexList = [index];
+      let auxLength = 0;
+      for (let i = index; i <= index + length; i++) {
+        const arrayLength = multipleStyles.length;
+        const style = this.editorInstance.getFormat(i, 1);
+        // Executes at first iteration
+        if (arrayLength == 0) {
+          // initialize array with first char format
+          multipleStyles.push(style);
+          continue;
+        }
+        auxLength++;
+
+        if (
+          JSON.stringify(multipleStyles[arrayLength - 1]) !=
+            JSON.stringify(style) ||
+          i == index + length
+        ) {
+          // set the length of previous format
+          multipleStyles[arrayLength - 1] = {
+            ...multipleStyles[arrayLength - 1],
+            ...{ length: auxLength },
+          };
+          if (i < index + length) {
+            multipleStyles.push(style);
+            indexList.push(i);
+          }
+          auxLength = 0;
+        }
+      }
+      return multipleStyles.map(function(x, i) {
+        x["index"] = indexList[i];
+        return x;
+      });
     },
   },
 };
