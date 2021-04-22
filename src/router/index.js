@@ -17,6 +17,11 @@ const routes = [
     name: "User",
     component: () => import(/* webpackChunkName: "user" */ "../views/User.vue"),
   },
+  {
+    path: "/calibration",
+    name: "Calibration",
+    component: () => import(/* webpackChunkName: "user" */ "../views/calibration.vue"),
+  },
 ];
 
 const router = new VueRouter({

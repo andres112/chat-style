@@ -12,6 +12,12 @@
       <v-avatar size="36px" class="mr-2">
         <img alt="Avatar" :src="user.photo" />
       </v-avatar>
+      <v-btn icon v-show="showCalibrate" @click="openCalibrate()">
+        <v-icon>fas fa-compress</v-icon>
+      </v-btn>
+      <v-btn icon v-show="hideCalibrate" @click="closeCalibrate()">
+        <v-icon>fas fa-window-close</v-icon>
+      </v-btn>
       <v-btn icon @click="closeSession()">
         <v-icon>fas fa-sign-out-alt</v-icon>
       </v-btn>
@@ -23,14 +29,30 @@
 import { mapState, mapActions } from "vuex";
 
 export default {
+  data: () => ({
+      showCalibrate: true,
+      hideCalibrate: false
+  }),
   computed: {
     ...mapState({ user: (state) => state.user.user }),
   },
   methods: {
     ...mapActions({
+      voiceCalibration: "user/voicecalibration",
+      cancelCalibration : "user/cancelCalibration",
       signOut: "user/signOut",
       toogleSidebar: "settings/toogleSidebar",
     }),
+    openCalibrate() {
+        this.showCalibrate = false;
+        this.hideCalibrate = true;
+        this.voiceCalibration();
+    },
+    closeCalibrate() {
+      this.showCalibrate = true;
+      this.hideCalibrate = false;
+      this.cancelCalibration();
+    },
     closeSession() {
       this.signOut();
     },
