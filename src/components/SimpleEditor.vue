@@ -92,6 +92,8 @@ export default {
             aux.editorInstance.insertText(item.index, emojiText[id]);
             // calculate the new length after emoji translation
             const newlength = emojiText[id].length;
+            // Remove format set by previous insert, which is wrong
+            aux.editorInstance.removeFormat(item.index, newlength);
             // asing style to block of text
             aux.editorInstance.formatText(item.index, newlength, item);
             diff += item.length - newlength;
