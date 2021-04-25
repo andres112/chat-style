@@ -22,6 +22,7 @@ const DEFAULT_COMMANDS = {
   strike: false,
   color: "black",
   background: "",
+  script: "",
 };
 
 export default {
@@ -34,12 +35,6 @@ export default {
 
   data() {
     return {
-      textStyle: [
-        { command: "strong", value: "bold" },
-        { command: "italic", value: "italic" },
-        { command: "underline", value: "underline" },
-        { command: "strike", value: "strike" },
-      ],
       newStyle: {},
       editorContent: null,
       editorInstance: null,
@@ -47,7 +42,7 @@ export default {
         modules: {
           toolbar: false,
         },
-        theme: "bubble",
+        theme: "snow",
       },
       rangeSelected: {},
       emoji_traslator: null,

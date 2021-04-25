@@ -38,7 +38,8 @@ Translator.prototype = {
       var codepoints = this.emojiData[word.toLowerCase()];
       if (codepoints != undefined && codepoints.length > 0) {
         var randomPoints =
-          codepoints[Math.floor(Math.random() * codepoints.length)];
+          // codepoints[Math.floor(Math.random() * codepoints.length)];
+          codepoints[0];
         output.push(String.fromCodePoint(...randomPoints));
       } else {
         // No matching emoji found. Append original word.

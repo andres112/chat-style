@@ -18,6 +18,7 @@ export const getObjectCommand = function(rawCommand) {
       color: "black",
       background: "",
       emoji: false,
+      script: "",
     };
     return commands;
   }
@@ -35,6 +36,12 @@ export const getObjectCommand = function(rawCommand) {
   }
   if (rawCommand.includes("moji")) {
     commands["emoji"] = true;
+  }
+  if (rawCommand.includes("super")) {
+    commands["script"] = "super";
+  }
+  if (rawCommand.includes("lower")) {
+    commands["script"] = "sub";
   }
   return commands;
 };
