@@ -1,5 +1,9 @@
+import store from "@/store/index.js";
+
 export const getObjectCommand = function(rawCommand) {
   let commands = {};
+  // emoji command require special treatment
+  commands["emoji"] = store.getters["text/getIsEmoji"];
   const array = rawCommand
     .toLowerCase()
     .trim()
@@ -36,6 +40,7 @@ export const getObjectCommand = function(rawCommand) {
   }
   if (rawCommand.includes("moji")) {
     commands["emoji"] = true;
+    store.dispatch("text/updateEmoji", true);
   }
   if (rawCommand.includes("super")) {
     commands["script"] = "super";
@@ -43,6 +48,17 @@ export const getObjectCommand = function(rawCommand) {
   if (rawCommand.includes("lower")) {
     commands["script"] = "sub";
   }
+  // validate remove style
+  if (rawCommand.includes("remove")) {
+    for (const key in commands) {
+      commands[key] = typeof commands[key] === "boolean" ? false : "";
+      // emoji command requires special treatment
+      if (commands.hasOwnProperty("emoji")) {
+        store.dispatch("text/updateEmoji", false);
+      }
+    }
+  }
+
   return commands;
 };
 

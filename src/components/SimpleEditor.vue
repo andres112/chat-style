@@ -23,6 +23,7 @@ const DEFAULT_COMMANDS = {
   color: "black",
   background: "",
   script: "",
+  emoji: false,
 };
 
 export default {
@@ -46,6 +47,7 @@ export default {
       },
       rangeSelected: {},
       emoji_traslator: null,
+      lastWord: null,
     };
   },
 
@@ -70,32 +72,8 @@ export default {
       if (this.rangeSelected?.length > 0) {
         // before to apply the new style, validate if emoji command
         if (this.newStyle?.emoji) {
-          // get the multiple styles in selected text
-          const multypleStyles = this.getMultipleStyles(index, length);
-          // contains the text with emojis
-          let emojiText = [];
-          multypleStyles.forEach((x) => {
-            const selectedText = aux.editorInstance.getText(x.index, x.length);
-            emojiText.push(aux.emoji_traslator.translate(selectedText));
-          });
-
-          // control for the index variation
-          let diff = 0;
-          multypleStyles.forEach((item, id) => {
-            item.index = item.index - diff;
-            aux.editorInstance.deleteText(item.index, item.length);
-            aux.editorInstance.insertText(item.index, emojiText[id]);
-            // calculate the new length after emoji translation
-            const newlength = emojiText[id].length;
-            // Remove format set by previous insert, which is wrong
-            aux.editorInstance.removeFormat(item.index, newlength);
-            // asing style to block of text
-            aux.editorInstance.formatText(item.index, newlength, item);
-            diff += item.length - newlength;
-          });
+          this.multipleWordToEmoji(index, length);
           return;
-
-          // console.log(length);
         }
         this.editorInstance.formatText(index, length, this.newStyle);
         return;
@@ -111,6 +89,33 @@ export default {
       });
     },
 
+    // Watch every time the editor content change
+    editorContent() {
+      if (
+        this.newStyle?.emoji &&
+        (this.rangeSelected?.length == 0 || !this.rangeSelected?.length)
+      ) {
+        let content = this.editorInstance.getText();
+        content = content.replaceAll("\n", "");
+        if (content[content.length - 1] == " " && !this.lastWord) {
+          return;
+        }
+        if (content[content.length - 1] == " " && this.lastWord) {
+          const result = this.emoji_traslator.translate(this.lastWord);
+
+          if (this.emoji_traslator.isEmoji(result)) {
+            const wordIndex = content.lastIndexOf(this.lastWord);
+            this.editorInstance.deleteText(wordIndex, this.lastWord.length);
+            this.editorInstance.insertText(wordIndex, result);
+          }
+          this.lastWord = null;
+          return;
+        }
+        let words = content.split(" ");
+        this.lastWord = words[words.length - 1];
+      }
+    },
+
     message() {
       if (!this.message) {
         this.editorInstance.setText("");
@@ -122,6 +127,7 @@ export default {
     this.initializeEditor();
     var emojiData = require("@/assets/emoji-data.json");
     this.emoji_traslator = new Translator(emojiData);
+    this.rangeSelected = { index: 0, length: 0 };
   },
 
   beforeDestroy() {
@@ -169,7 +175,6 @@ export default {
       } else {
         this.rangeSelected = {};
       }
-      console.log(this.rangeSelected);
     },
 
     // Get all the formats in selected text
@@ -208,6 +213,32 @@ export default {
       return multipleStyles.map(function(x, i) {
         x["index"] = indexList[i];
         return x;
+      });
+    },
+    multipleWordToEmoji(index, length) {
+      const aux = this;
+      // get the multiple styles in selected text
+      const multypleStyles = this.getMultipleStyles(index, length);
+      // contains the text with emojis
+      let emojiText = [];
+      multypleStyles.forEach((x) => {
+        const selectedText = aux.editorInstance.getText(x.index, x.length);
+        emojiText.push(aux.emoji_traslator.translate(selectedText));
+      });
+
+      // control for the index variation
+      let diff = 0;
+      multypleStyles.forEach((item, id) => {
+        item.index = item.index - diff;
+        aux.editorInstance.deleteText(item.index, item.length);
+        aux.editorInstance.insertText(item.index, emojiText[id]);
+        // calculate the new length after emoji translation
+        const newlength = emojiText[id].length;
+        // Remove format set by previous insert, which is wrong
+        aux.editorInstance.removeFormat(item.index, newlength);
+        // asing style to block of text
+        aux.editorInstance.formatText(item.index, newlength, item);
+        diff += item.length - newlength;
       });
     },
   },

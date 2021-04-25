@@ -38,8 +38,8 @@ Translator.prototype = {
       var codepoints = this.emojiData[word.toLowerCase()];
       if (codepoints != undefined && codepoints.length > 0) {
         var randomPoints =
-          // codepoints[Math.floor(Math.random() * codepoints.length)];
-          codepoints[0];
+          codepoints[Math.floor(Math.random() * codepoints.length)];
+        // codepoints[0];
         output.push(String.fromCodePoint(...randomPoints));
       } else {
         // No matching emoji found. Append original word.
@@ -51,6 +51,18 @@ Translator.prototype = {
       output.push(input.slice(lastIndex));
     }
     return output.join("");
+  },
+
+  isEmoji: function(word) {
+    let ranges = [
+      "\u00a9",
+      "\u00ae",
+      "[\u2000-\u3300]",
+      "\ud83c[\udf00-\udfff]", // U+1F300 to U+1F3FF
+      "\ud83d[\udc00-\udeff]", // U+1F400 to U+1F64F
+      "\ud83e[\ude00-\udeff]", // U+1F680 to U+1F6FF
+    ];
+    return word.match(ranges.join("|")) !== null;
   },
 };
 
