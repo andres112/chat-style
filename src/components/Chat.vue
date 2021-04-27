@@ -59,7 +59,7 @@
               </v-col>
               <v-col cols="10">
                 <SimpleEditor v-model="content" />
-                <h5>{{ lastCommand }}</h5>
+                <!-- <h5>{{ lastCommand }}</h5> -->
               </v-col>
               <v-col cols="1">
                 <v-btn

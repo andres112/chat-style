@@ -1,9 +1,19 @@
 <template>
   <div class="simple-editor">
-    <div class="editor-node mx-2" ref="editorNode"></div>
+    <v-emoji-picker
+      @select="selectEmoji"
+      v-show="emoji_menu"
+      class="emoji-menu"
+    />
+    <div class="editor-node mx-2" ref="editorNode" @click="hideEmojiMenu"></div>
     <v-container fluid d-inline-flex>
-      <pre>{{ newStyle }}</pre>
-      <pre>{{ editorContent }}</pre>
+      <v-row>
+        <v-btn icon @click="emoji_menu = !emoji_menu">
+          <v-icon>far fa-smile-beam</v-icon>
+        </v-btn>
+      </v-row>
+      <!-- <pre>{{ newStyle }}</pre>
+      <pre>{{ editorContent }}</pre> -->
     </v-container>
   </div>
 </template>
@@ -11,6 +21,7 @@
 <script>
 import Quill from "quill";
 import { mapState, mapActions } from "vuex";
+import { VEmojiPicker } from "v-emoji-picker";
 
 // emoji-translator.js library as feature for editor
 import Translator from "@/assets/emoji-translator.js";
@@ -24,6 +35,7 @@ const DEFAULT_COMMANDS = {
   background: "",
   script: "",
   emoji: false,
+  size: "large",
 };
 
 export default {
@@ -32,6 +44,9 @@ export default {
       default: "",
       type: String,
     },
+  },
+  components: {
+    VEmojiPicker,
   },
 
   data() {
@@ -47,6 +62,7 @@ export default {
       },
       rangeSelected: {},
       emoji_traslator: null,
+      emoji_menu: false,
       lastWord: null,
     };
   },
@@ -116,10 +132,19 @@ export default {
       }
     },
 
+    // When message is sent
     message() {
       if (!this.message) {
         this.editorInstance.setText("");
       }
+    },
+
+    // When change user destination
+    destination() {
+      this.editorInstance.setText("");
+      this.updateEmoji("false");
+      this.updateStyles(DEFAULT_COMMANDS);
+      this.emoji_menu = false;
     },
   },
 
@@ -138,11 +163,16 @@ export default {
     ...mapState({
       stylesObject: (state) => state.text.stylesObject,
       message: (state) => state.text.message,
+      destination: (state) => state.chat.destination,
     }),
   },
 
   methods: {
-    ...mapActions({ updateMessage: "text/updateMessage" }),
+    ...mapActions({
+      updateMessage: "text/updateMessage",
+      updateEmoji: "text/updateEmoji",
+      updateStyles: "text/updateStyles",
+    }),
     initializeEditor() {
       // Set initial content that's going to be picked up by Quill
       this.$refs.editorNode.innerHTML = this.value;
@@ -241,6 +271,13 @@ export default {
         diff += item.length - newlength;
       });
     },
+    selectEmoji(emoji) {
+      const currentIndex = this.editorInstance.getText().length;
+      this.editorInstance.insertText(currentIndex - 1, emoji.data);
+    },
+    hideEmojiMenu() {
+      this.emoji_menu = false; // hide the emoji menu
+    },
   },
 };
 </script>
@@ -252,5 +289,9 @@ export default {
   border-radius: 20px;
   max-height: 75px;
   overflow-y: hidden;
+}
+.emoji-menu {
+  position: absolute;
+  bottom: 15%;
 }
 </style>

@@ -5,6 +5,7 @@
 </template>
 
 <script>
+import { mapState } from "vuex";
 export default {
   name: "speech",
 
@@ -26,6 +27,7 @@ export default {
   }),
 
   computed: {
+    ...mapState({ destination: (state) => state.chat.destination }),
     getColor() {
       if (this.recognizing) {
         return "light-green accent-4";
@@ -114,6 +116,14 @@ export default {
       this.ignore_onend = false;
       this.transcription = [];
       this.runtimeTranscription = "";
+    },
+  },
+
+  watch: {
+    destination() {
+      if (this.recognizing) {
+        this.listen();
+      }
     },
   },
 
