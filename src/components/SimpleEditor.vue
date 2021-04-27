@@ -43,7 +43,7 @@ export default {
         modules: {
           toolbar: false,
         },
-        theme: "snow",
+        theme: "bubble",
       },
       rangeSelected: {},
       emoji_traslator: null,
