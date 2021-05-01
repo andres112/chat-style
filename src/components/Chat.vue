@@ -15,7 +15,9 @@
             <v-row
               class="d-flex"
               :class="
-                msg.source.user_uid == user.uid ? 'justify-end' : 'justify-start'
+                msg.source.user_uid == user.uid
+                  ? 'justify-end'
+                  : 'justify-start'
               "
             >
               <v-card
@@ -49,17 +51,44 @@
           </v-card-text>
         </v-card-text>
 
-        <!-- Message box and speech button section -->
+        <!-- Indicator icons -->
+        <v-container>
+          <v-icon class="mr-3" small color="grey lighten-1">fas fa-bold</v-icon>
+          <v-icon class="mr-3" small color="grey lighten-1"
+            >fas fa-italic</v-icon
+          >
+          <v-icon class="mr-3" small color="grey lighten-1"
+            >fas fa-underline</v-icon
+          >
+          <v-icon class="mr-3" small color="grey lighten-1"
+            >fas fa-strikethrough</v-icon
+          >
+          <v-icon class="mr-3" small color="grey lighten-1">fas fa-tint</v-icon>
+          <v-icon class="mr-3" small color="grey lighten-1"
+            >fas fa-highlighter</v-icon
+          >
+          <v-icon class="mr-3" small color="grey lighten-1"
+            >fas fa-superscript</v-icon
+          >
+          <v-icon class="mr-3" small color="grey lighten-1"
+            >fas fa-subscript</v-icon
+          >
+          <v-icon class="mr-3" small :color="indicators.emoji_icon"
+            >far fa-smile-beam</v-icon
+          >
+        </v-container>
+
         <v-divider class="mx-2"></v-divider>
+        <!-- Message box and speech button section -->
         <v-card-text>
           <v-form @submit.prevent="send({ msg: message })">
-            <v-row no-gutters class="mt-3">
+            <v-row no-gutters class="mt-1">
               <v-col cols="1" class=" text-left text-sm-right">
                 <speech @onTranscriptionEnd="onEnd" :isListening="voice" />
               </v-col>
               <v-col cols="10">
                 <SimpleEditor v-model="content" />
-                <!-- <h5>{{ lastCommand }}</h5> -->
+                <h5>{{ lastCommand }}</h5>
               </v-col>
               <v-col cols="1">
                 <v-btn
@@ -91,6 +120,7 @@ export default {
     content: "",
     voice: false,
     lastCommand: "",
+    indicators: { emoji_icon: false },
   }),
   components: {
     SimpleEditor,
@@ -98,6 +128,10 @@ export default {
   },
   created() {
     this.snapshotMessages();
+    // Initialize all the indicators in disabled color
+    for (const item in this.indicators) {
+      this.indicators[item] = "grey lighten-1";
+    }
   },
   computed: {
     ...mapState({
@@ -105,6 +139,7 @@ export default {
       destination: (state) => state.chat.destination,
       message: (state) => state.text.message,
       messages: (state) => state.chat.messages,
+      emoji: (state) => state.text.isEmoji,
     }),
     chatWidth() {
       switch (this.$vuetify.breakpoint.name) {
@@ -123,8 +158,8 @@ export default {
     ...mapActions({
       updateStyles: "text/updateStyles",
       updateMessage: "text/updateMessage",
-      sendMessage: "chat/sendMessage",   
-      snapshotMessages: "chat/snapshotMessages",   
+      sendMessage: "chat/sendMessage",
+      snapshotMessages: "chat/snapshotMessages",
     }),
     onEnd({ transcription }) {
       this.lastCommand = transcription;
@@ -149,12 +184,19 @@ export default {
       this.updateMessage(null);
     },
   },
+  watch: {
+    emoji() {
+      this.indicators.emoji_icon = this.emoji
+        ? "light-green darken-2"
+        : "grey lighten-1";
+    },
+  },
 };
 </script>
 
 <style scoped>
 .chat-window {
   overflow: auto;
-  height: 75vh;
+  height: 70vh;
 }
 </style>

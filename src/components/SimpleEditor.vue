@@ -8,8 +8,11 @@
     <div class="editor-node mx-2" ref="editorNode" @click="hideEmojiMenu"></div>
     <v-container fluid d-inline-flex>
       <v-row>
-        <v-btn icon @click="emoji_menu = !emoji_menu">
+        <v-btn icon @click="emoji_menu = !emoji_menu" class="mr-1">
           <v-icon>far fa-smile-beam</v-icon>
+        </v-btn>
+        <v-btn icon @click="emoji_menu = !emoji_menu">
+          <v-icon>fas fa-bars</v-icon>
         </v-btn>
       </v-row>
       <!-- <pre>{{ newStyle }}</pre>
