@@ -19,7 +19,7 @@ export const getObjectCommand = function(rawCommand) {
       italic: false,
       underline: false,
       strike: false,
-      color: "black",
+      color: "",
       background: "",
       emoji: false,
       script: "",
@@ -41,7 +41,7 @@ export const getObjectCommand = function(rawCommand) {
   }
   if (rawCommand.includes("moji")) {
     commands["emoji"] = true;
-    store.dispatch("text/updateEmoji", true);
+    store.dispatch("text/updateStyles", { emoji: true });
   }
   if (rawCommand.includes("super")) {
     commands["script"] = "super";
@@ -55,7 +55,7 @@ export const getObjectCommand = function(rawCommand) {
       commands[key] = typeof commands[key] === "boolean" ? false : "";
       // emoji command requires special treatment
       if (commands.hasOwnProperty("emoji")) {
-        store.dispatch("text/updateEmoji", false);
+        store.dispatch("text/updateStyles", { emoji: false });
       }
     }
   }

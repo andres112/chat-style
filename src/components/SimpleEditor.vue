@@ -34,7 +34,7 @@ const DEFAULT_COMMANDS = {
   italic: false,
   underline: false,
   strike: false,
-  color: "black",
+  color: "",
   background: "",
   script: "",
   emoji: false,
@@ -78,12 +78,15 @@ export default {
         this.editorInstance.pasteHTML(newVal);
       }
     },
-    stylesObject() {
+    currentStyle() {
       const aux = this;
       const currentPos = this.editorInstance.getSelection();
-      const currentStyle = this.editorInstance.getFormat(currentPos);
+      if (!currentPos) {
+        return;
+      }
+      const oldStyle = this.editorInstance.getFormat(currentPos);
       // merge current style with new one
-      this.newStyle = { ...currentStyle, ...this.stylesObject };
+      this.newStyle = { ...oldStyle, ...this.currentStyle };
 
       let { index, length } = { ...this.rangeSelected };
 
@@ -145,7 +148,6 @@ export default {
     // When change user destination
     destination() {
       this.editorInstance.setText("");
-      this.updateEmoji("false");
       this.updateStyles(DEFAULT_COMMANDS);
       this.emoji_menu = false;
     },
@@ -164,7 +166,7 @@ export default {
   },
   computed: {
     ...mapState({
-      stylesObject: (state) => state.text.stylesObject,
+      currentStyle: (state) => state.text.currentStyle,
       message: (state) => state.text.message,
       destination: (state) => state.chat.destination,
     }),
@@ -173,7 +175,6 @@ export default {
   methods: {
     ...mapActions({
       updateMessage: "text/updateMessage",
-      updateEmoji: "text/updateEmoji",
       updateStyles: "text/updateStyles",
     }),
     initializeEditor() {
@@ -181,6 +182,8 @@ export default {
       this.$refs.editorNode.innerHTML = this.value;
       // Create the Quill instance
       this.editorInstance = new Quill(this.$refs.editorNode, this.editorOpts);
+
+      this.editorInstance.format(DEFAULT_COMMANDS);
 
       // Setup handler for whenever things change inside Quill
       this.editorInstance.on("text-change", this.onEditorContentChange);

@@ -52,31 +52,7 @@
         </v-card-text>
 
         <!-- Indicator icons -->
-        <v-container>
-          <v-icon class="mr-3" small color="grey lighten-1">fas fa-bold</v-icon>
-          <v-icon class="mr-3" small color="grey lighten-1"
-            >fas fa-italic</v-icon
-          >
-          <v-icon class="mr-3" small color="grey lighten-1"
-            >fas fa-underline</v-icon
-          >
-          <v-icon class="mr-3" small color="grey lighten-1"
-            >fas fa-strikethrough</v-icon
-          >
-          <v-icon class="mr-3" small color="grey lighten-1">fas fa-tint</v-icon>
-          <v-icon class="mr-3" small color="grey lighten-1"
-            >fas fa-highlighter</v-icon
-          >
-          <v-icon class="mr-3" small color="grey lighten-1"
-            >fas fa-superscript</v-icon
-          >
-          <v-icon class="mr-3" small color="grey lighten-1"
-            >fas fa-subscript</v-icon
-          >
-          <v-icon class="mr-3" small :color="indicators.emoji_icon"
-            >far fa-smile-beam</v-icon
-          >
-        </v-container>
+        <indicators></indicators>
 
         <v-divider class="mx-2"></v-divider>
         <!-- Message box and speech button section -->
@@ -114,17 +90,18 @@ import SimpleEditor from "@/components/SimpleEditor";
 import Speech from "@/components/Speech";
 import { mapActions, mapState } from "vuex";
 import { getObjectCommand } from "@/assets/voiceControl.js";
+import Indicators from '@/components/Indicators';
 
 export default {
   data: () => ({
     content: "",
     voice: false,
-    lastCommand: "",
-    indicators: { emoji_icon: false },
+    lastCommand: "",    
   }),
   components: {
     SimpleEditor,
     Speech,
+    Indicators,
   },
   created() {
     this.snapshotMessages();
@@ -139,7 +116,6 @@ export default {
       destination: (state) => state.chat.destination,
       message: (state) => state.text.message,
       messages: (state) => state.chat.messages,
-      emoji: (state) => state.text.isEmoji,
     }),
     chatWidth() {
       switch (this.$vuetify.breakpoint.name) {
@@ -183,14 +159,7 @@ export default {
       this.sendMessage();
       this.updateMessage(null);
     },
-  },
-  watch: {
-    emoji() {
-      this.indicators.emoji_icon = this.emoji
-        ? "light-green darken-2"
-        : "grey lighten-1";
-    },
-  },
+  },  
 };
 </script>
 
