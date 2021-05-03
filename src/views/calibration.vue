@@ -13,17 +13,17 @@
         </v-btn>
       </v-row>
       <v-row no-gutters class="mt-3 pt-15" align="center" justify="center">
-        <h1>{{ currentKeyWord }}</h1>
+        <h1>{{ newKeyword }}</h1>
       </v-row>
       <v-row no-gutters class="mt-3 pt-15" align="center" justify="center">
         <v-col class="mt-3" align="right">
-          <v-icon id = calibrate1 :color="calibrate1.color">fas fa-circle</v-icon>
-        </v-col>
+          <v-icon :color="color1">fas fa-circle</v-icon>        
+          </v-col>
         <v-col class="mt-3" align="center">
-          <v-icon :color="calibrate2.color">fas fa-circle</v-icon>
+          <v-icon :color="color2">fas fa-circle</v-icon>
         </v-col>
         <v-col class="mt-3" align="left">
-          <v-icon :color="calibrate3.color">fas fa-circle</v-icon>
+          <v-icon :color="color3">fas fa-circle</v-icon>
         </v-col>
       </v-row>
     </v-card-text>
@@ -53,21 +53,13 @@ export default {
     ignore_onend: false,
     keyWords: ["START", "BOLD", "ITALIC", "HIGHLIGHT", "COLOR", "UNDERLINE", "STRIKE", "STOP"],
     keyWordCount: 0,
-    currentKeyWord: "",
-    calibrate1: {
-      color: "default",
-    },
-    calibrate2: {
-      color: "default",
-    },
-    calibrate3: {
-      color: "default",
-    },
-    colors: {
-      green: "green",
-      grey: "grey",
-      red: "red",
-    },
+    oldKeyWord: "",
+    newKeyword: "",
+    currentIteration: 0,
+    color1: "grey lighten-1",
+    color2: "grey lighten-1",
+    color3: "grey lighten-1",
+
   }),
 
   computed: {
@@ -77,20 +69,27 @@ export default {
       }
       return "grey lighten-1";
     },
-    changecolor(){
-      this.calibrate1.color = "light-green accent-4";
+    changeColor(){
+    switch (this.currentIteration) {
+    case 1:
+      this.color1 = "light-green accent-4";
+      break;
+    case 2:
+      this.color2 = "light-green accent-4";
+      break;
+    case 3:
+      this.color3 = "light-green accent-4";
+      break;
+    default:
+      this.color1 = "grey lighten-1";
+      this.color2 = "grey lighten-1";
+      this.color3 = "grey lighten-1";
+    }             
     }
   },
 
   methods: {
     initialize() {
-
-      this.currentKeyWord = this.keyWords[this.keyWordCount];
-      this.keyWordCount = this.keyWordCount ++;
-      window.oldKeyWord = this.currentKeyWord;
-      window.currentKeyWord = this.currentKeyWord;
-      window.currentIteration = 0;
-      
       if (!("webkitSpeechRecognition" in window)) {
         upgrade();
       } else {
@@ -100,6 +99,7 @@ export default {
         this.recognition.continuous = true;
         this.recognition.interimResults = false;
         this.recognition.maxAlternatives = 3;
+        this.newKeyword = this.keyWords[this.keyWordCount];
 
         // Recognition start
         this.recognition.onstart = function () {
@@ -123,6 +123,10 @@ export default {
             aux.recognition.start();
             return;
           }
+          if (!aux.recognizing) {
+            aux.recognition.stop();
+            return;
+          }
           if (aux.ignore_onend) {
             return;
           }
@@ -132,33 +136,36 @@ export default {
         this.recognition.onresult = function (event) {
           var current = event.resultIndex;
           var transcript = event.results[current][0].transcript;
-          console.log("The transcript is::::" + transcript)
+          console.log("The transcript is::::" + transcript);
           var alternatives = Array.from(event.results[current]);
           const calibrations = {};
-          var oldCount = window.currentKeyWordCount;
           alternatives.forEach((result) => {
             calibrations[result.transcript] = result.confidence;
-            window.currentIteration = window.currentIteration + 1;
-            //console.log(result.transcript);
           });
           const calibrationsGroup = {};
-          calibrationsGroup[window.currentKeyWord] = calibrations;
+          calibrationsGroup[aux.newKeyword] = calibrations;
 
-          if(window.oldKeyWord === window.currentKeyWord){
+          if (aux.oldKeyWord === aux.newKeyword && aux.currentIteration < 4) {
+            aux.currentIteration = aux.currentIteration + 1;
+            db.collection("keyWords").doc(window.user.uid).set(calibrationsGroup, { merge: true });
+
+            if (aux.currentIteration === 3) {
+              aux.currentIteration = 0;
+              aux.keyWordCount = aux.keyWordCount + 1;
+              if (aux.keyWordCount < aux.keyWords.length) {
+                aux.newKeyword = aux.keyWords[aux.keyWordCount];
+              } else {
+                aux.newKeyword = "";
+                aux.recognizing = false;
+                aux.recognition.onend();
+              }
+            }
+          }
+          else if (aux.oldKeyWord !== aux.newKeyword) {
+            aux.currentIteration = 1;
+            aux.oldKeyWord = aux.newKeyword;
             db.collection("keyWords").doc(window.user.uid).set(calibrationsGroup, { merge: true });
           }
-          else{
-            db.collection("keyWords").doc(window.user.uid).set(calibrationsGroup);
-          }
-
-          if(window.currentIteration === 3){
-            window.oldKeyWord = window.currentKeyWord;
-            window.currentKeyWord = "";
-            router.push("/calibration");
-          }
-
-
-          
         };
       }
     },
