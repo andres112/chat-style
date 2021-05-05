@@ -17,7 +17,7 @@
       </v-row>
       <v-row no-gutters class="mt-3 pt-15" align="center" justify="center">
         <v-col class="mt-3" align="right">
-          <v-icon :color="color1">fas fa-circle</v-icon>        
+            <v-icon :color="color1">fas fa-circle</v-icon>        
           </v-col>
         <v-col class="mt-3" align="center">
           <v-icon :color="color2">fas fa-circle</v-icon>
@@ -51,7 +51,16 @@ export default {
     speechGrammarList: null,
     recognizing: false,
     ignore_onend: false,
-    keyWords: ["START", "BOLD", "ITALIC", "HIGHLIGHT", "COLOR", "UNDERLINE", "STRIKE", "STOP"],
+    keyWords: [
+      "START",
+      "BOLD",
+      "ITALIC",
+      "HIGHLIGHT",
+      "COLOR",
+      "UNDERLINE",
+      "STRIKE",
+      "STOP"
+    ],
     keyWordCount: 0,
     oldKeyWord: "",
     newKeyword: "",
@@ -69,7 +78,7 @@ export default {
       }
       return "grey lighten-1";
     },
-    changeColor(){
+changeColor(){
     switch (this.currentIteration) {
     case 1:
       this.color1 = "light-green accent-4";
@@ -140,14 +149,14 @@ export default {
           var alternatives = Array.from(event.results[current]);
           const calibrations = {};
           alternatives.forEach((result) => {
-            calibrations[result.transcript] = result.confidence;
+            calibrations[result.transcript.toLowerCase().trim()] = result.confidence;
           });
           const calibrationsGroup = {};
           calibrationsGroup[aux.newKeyword] = calibrations;
 
           if (aux.oldKeyWord === aux.newKeyword && aux.currentIteration < 4) {
             aux.currentIteration = aux.currentIteration + 1;
-            db.collection("keyWords").doc(window.user.uid).set(calibrationsGroup, { merge: true });
+           db.collection("keyWords").doc(window.user.uid).set(calibrationsGroup, { merge: true });
 
             if (aux.currentIteration === 3) {
               aux.currentIteration = 0;
@@ -160,7 +169,7 @@ export default {
                 aux.recognition.onend();
               }
             }
-          }
+        }
           else if (aux.oldKeyWord !== aux.newKeyword) {
             aux.currentIteration = 1;
             aux.oldKeyWord = aux.newKeyword;

@@ -134,6 +134,10 @@ const actions = {
   // Set current user
   setUser({ commit }, user) {
     window.user = user;
+    db.collection("keyWords").doc(window.user.uid).get().then((doc) => {
+      if (doc.exists === true) {
+        window.user.calibration = doc.data();
+    }});
     commit("setUser", user);
   },
 
