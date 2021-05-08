@@ -11,9 +11,8 @@
         <v-btn icon @click="emoji_menu = !emoji_menu" class="mr-1">
           <v-icon>far fa-smile-beam</v-icon>
         </v-btn>
-        <v-btn icon @click="emoji_menu = !emoji_menu">
-          <v-icon>fas fa-bars</v-icon>
-        </v-btn>
+
+        <traditional-menu></traditional-menu>
       </v-row>
       <!-- <pre>{{ newStyle }}</pre>
       <pre>{{ editorContent }}</pre> -->
@@ -28,6 +27,7 @@ import { VEmojiPicker } from "v-emoji-picker";
 
 // emoji-translator.js library as feature for editor
 import Translator from "@/assets/emoji-translator.js";
+import TraditionalMenu from "./TraditionalMenu.vue";
 
 const DEFAULT_COMMANDS = {
   bold: false,
@@ -50,6 +50,7 @@ export default {
   },
   components: {
     VEmojiPicker,
+    TraditionalMenu,
   },
 
   data() {
@@ -78,37 +79,40 @@ export default {
         this.editorInstance.pasteHTML(newVal);
       }
     },
-    currentStyle() {
-      const aux = this;
-      const currentPos = this.editorInstance.getSelection();
-      if (!currentPos) {
-        return;
-      }
-      const oldStyle = this.editorInstance.getFormat(currentPos);
-      // merge current style with new one
-      this.newStyle = { ...oldStyle, ...this.currentStyle };
-
-      let { index, length } = { ...this.rangeSelected };
-
-      // Verify if text to modify is a range selection
-      if (this.rangeSelected?.length > 0) {
-        // before to apply the new style, validate if emoji command
-        if (this.newStyle?.emoji) {
-          this.multipleWordToEmoji(index, length);
+    currentStyle: {
+      handler() {
+        const aux = this;
+        const currentPos = this.editorInstance.getSelection();
+        if (!currentPos) {
           return;
         }
-        this.editorInstance.formatText(index, length, this.newStyle);
-        return;
-      }
+        const oldStyle = this.editorInstance.getFormat(currentPos);
+        // merge current style with new one
+        this.newStyle = { ...oldStyle, ...this.currentStyle };
 
-      // When there is not range selected
-      Object.keys(DEFAULT_COMMANDS).forEach(function(command) {
-        if (aux.newStyle.hasOwnProperty(command)) {
-          aux.editorInstance.format(command, aux.newStyle[command]);
+        let { index, length } = { ...this.rangeSelected };
+
+        // Verify if text to modify is a range selection
+        if (this.rangeSelected?.length > 0) {
+          // before to apply the new style, validate if emoji command
+          if (this.newStyle?.emoji) {
+            this.multipleWordToEmoji(index, length);
+            return;
+          }
+          this.editorInstance.formatText(index, length, this.newStyle);
           return;
         }
-        aux.editorInstance.format(command, DEFAULT_COMMANDS[command]);
-      });
+
+        // When there is not range selected
+        Object.keys(DEFAULT_COMMANDS).forEach(function(command) {
+          if (aux.newStyle.hasOwnProperty(command)) {
+            aux.editorInstance.format(command, aux.newStyle[command]);
+            return;
+          }
+          aux.editorInstance.format(command, DEFAULT_COMMANDS[command]);
+        });
+      },
+      deep: true,
     },
 
     // Watch every time the editor content change
