@@ -10,11 +10,13 @@ export const getObjectCommand = function(rawCommand) {
           var prop = array[i];
           Object.keys(calibrationData).forEach((key) => {
             if (calibrationData[key][prop]) {
+              array[i] = key.toLowerCase();
               console.log("changing::: " + prop + " to " + key );
-              array[i] = key
             }
           })
-    }};
+    }
+    rawCommand = array.join(' ');
+  };
   
 
   if (array.some((x) => isColor(x))) {
@@ -35,7 +37,9 @@ export const getObjectCommand = function(rawCommand) {
     };
     return commands;
   }
-  if (rawCommand.includes("strong")) {
+
+  var conditions = ["strong", "bold"];
+  if (conditions.some(el => rawCommand.includes(el))) {
     commands["bold"] = true;
   }
   if (rawCommand.includes("talic")) {

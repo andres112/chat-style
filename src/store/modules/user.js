@@ -128,6 +128,10 @@ const actions = {
   },
 
   cancelCalibration({ commit, rootState, dispatch }) {
+    db.collection("keyWords").doc(window.user.uid).get().then((doc) => {
+      if (doc.exists === true) {
+        window.user.calibration = doc.data();
+    }});
     router.push("/");
   },
 

@@ -107,7 +107,7 @@ changeColor(){
         this.recognition = new webkitSpeechRecognition();
         this.recognition.continuous = true;
         this.recognition.interimResults = false;
-        this.recognition.maxAlternatives = 3;
+        this.recognition.maxAlternatives = 5;
         this.newKeyword = this.keyWords[this.keyWordCount];
 
         // Recognition start
