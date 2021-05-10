@@ -1,8 +1,12 @@
-import { firebase, db, auth } from "@/firebase.js";
+import store from "@/store/index.js";
 
 export const getObjectCommand = function(rawCommand) {
   let commands = {};
-  const array = rawCommand.toLowerCase().trim().split(" ");
+  commands["emoji"] = store.getters["text/getIsEmoji"];
+  const array = rawCommand
+    .toLowerCase()
+    .trim()
+    .split(" ");
 
       if (typeof window.user.calibration !== "undefined") {
         var calibrationData = trimObj(window.user.calibration);
@@ -18,11 +22,8 @@ export const getObjectCommand = function(rawCommand) {
     rawCommand = array.join(' ');
   };
   
-
   if (array.some((x) => isColor(x))) {
-    const [textColor, backgroundColor = ""] = array.filter((x) =>
-      isColor(x)
-    );
+    const [textColor, backgroundColor = ""] = array.filter((x) => isColor(x));
     commands["color"] = textColor;
     commands["background"] = backgroundColor;
   }
@@ -34,6 +35,8 @@ export const getObjectCommand = function(rawCommand) {
       strike: false,
       color: "black",
       background: "",
+      emoji: false,
+      script: "",
     };
     return commands;
   }
@@ -51,6 +54,27 @@ export const getObjectCommand = function(rawCommand) {
   if (rawCommand.includes("strike")) {
     commands["strike"] = true;
   }
+  if (rawCommand.includes("moji")) {
+    commands["emoji"] = true;
+    store.dispatch("text/updateEmoji", true);
+  }
+  if (rawCommand.includes("super")) {
+    commands["script"] = "super";
+  }
+  if (rawCommand.includes("lower")) {
+    commands["script"] = "sub";
+  }
+  // validate remove style
+  if (rawCommand.includes("remove")) {
+    for (const key in commands) {
+      commands[key] = typeof commands[key] === "boolean" ? false : "";
+      // emoji command requires special treatment
+      if (commands.hasOwnProperty("emoji")) {
+        store.dispatch("text/updateEmoji", false);
+      }
+    }
+  }
+
   return commands;
 };
 

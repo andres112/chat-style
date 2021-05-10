@@ -1,6 +1,12 @@
 const state = {
   stylesObject: {},
+  isEmoji: false,
   message: null,
+};
+const getters = {
+  getIsEmoji: (state) => {
+    return state.isEmoji;
+  },
 };
 const mutations = {
   updateStyles(state, payload) {
@@ -8,6 +14,9 @@ const mutations = {
   },
   updateMessage(state, payload) {
     state.message = payload;
+  },
+  updateEmoji(state, payload) {
+    state.isEmoji = payload;
   },
 };
 const actions = {
@@ -17,11 +26,15 @@ const actions = {
   updateMessage({ commit }, message) {
     commit("updateMessage", message);
   },
+  updateEmoji({ commit }, value) {
+    commit("updateEmoji", value);
+  },
 };
 
 export default {
   namespaced: true,
   state,
+  getters,
   actions,
   mutations,
 };
