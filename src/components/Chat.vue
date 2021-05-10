@@ -15,7 +15,9 @@
             <v-row
               class="d-flex"
               :class="
-                msg.source.user_uid == user.uid ? 'justify-end' : 'justify-start'
+                msg.source.user_uid == user.uid
+                  ? 'justify-end'
+                  : 'justify-start'
               "
             >
               <v-card
@@ -49,11 +51,14 @@
           </v-card-text>
         </v-card-text>
 
-        <!-- Message box and speech button section -->
+        <!-- Indicator icons -->
+        <indicators></indicators>
+
         <v-divider class="mx-2"></v-divider>
+        <!-- Message box and speech button section -->
         <v-card-text>
           <v-form @submit.prevent="send({ msg: message })">
-            <v-row no-gutters class="mt-3">
+            <v-row no-gutters class="mt-1">
               <v-col cols="1" class=" text-left text-sm-right">
                 <speech @onTranscriptionEnd="onEnd" :isListening="voice" />
               </v-col>
@@ -85,6 +90,7 @@ import SimpleEditor from "@/components/SimpleEditor";
 import Speech from "@/components/Speech";
 import { mapActions, mapState } from "vuex";
 import { getObjectCommand } from "@/assets/voiceControl.js";
+import Indicators from "@/components/Indicators";
 
 export default {
   data: () => ({
@@ -95,9 +101,14 @@ export default {
   components: {
     SimpleEditor,
     Speech,
+    Indicators,
   },
   created() {
     this.snapshotMessages();
+    // Initialize all the indicators in disabled color
+    for (const item in this.indicators) {
+      this.indicators[item] = "grey lighten-1";
+    }
   },
   computed: {
     ...mapState({
@@ -123,9 +134,9 @@ export default {
     ...mapActions({
       updateStyles: "text/updateStyles",
       updateMessage: "text/updateMessage",
-      sendMessage: "chat/sendMessage",   
-      snapshotMessages: "chat/snapshotMessages",   
-    }),
+      sendMessage: "chat/sendMessage",
+      snapshotMessages: "chat/snapshotMessages",
+    }),    
     onEnd({ transcription }) {
       this.lastCommand = transcription;
       if (transcription.includes("start")) {
@@ -155,6 +166,6 @@ export default {
 <style scoped>
 .chat-window {
   overflow: auto;
-  height: 75vh;
+  height: 70vh;
 }
 </style>

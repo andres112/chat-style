@@ -1,9 +1,21 @@
 <template>
   <div class="simple-editor">
-    <div class="editor-node mx-2" ref="editorNode"></div>
+    <v-emoji-picker
+      @select="selectEmoji"
+      v-show="emoji_menu"
+      class="emoji-menu"
+    />
+    <div class="editor-node mx-2" ref="editorNode" @click="hideEmojiMenu"></div>
     <v-container fluid d-inline-flex>
-      <pre>{{ newStyle }}</pre>
-      <pre>{{ editorContent }}</pre>
+      <v-row>
+        <v-btn icon @click="emoji_menu = !emoji_menu" class="mr-1">
+          <v-icon>far fa-smile-beam</v-icon>
+        </v-btn>
+
+        <traditional-menu></traditional-menu>
+      </v-row>
+      <!-- <pre>{{ newStyle }}</pre>
+      <pre>{{ editorContent }}</pre> -->
     </v-container>
   </div>
 </template>
@@ -11,19 +23,22 @@
 <script>
 import Quill from "quill";
 import { mapState, mapActions } from "vuex";
+import { VEmojiPicker } from "v-emoji-picker";
 
 // emoji-translator.js library as feature for editor
 import Translator from "@/assets/emoji-translator.js";
+import TraditionalMenu from "./TraditionalMenu.vue";
 
 const DEFAULT_COMMANDS = {
   bold: false,
   italic: false,
   underline: false,
   strike: false,
-  color: "black",
+  color: "",
   background: "",
   script: "",
   emoji: false,
+  size: "large",
 };
 
 export default {
@@ -32,6 +47,10 @@ export default {
       default: "",
       type: String,
     },
+  },
+  components: {
+    VEmojiPicker,
+    TraditionalMenu,
   },
 
   data() {
@@ -47,6 +66,7 @@ export default {
       },
       rangeSelected: {},
       emoji_traslator: null,
+      emoji_menu: false,
       lastWord: null,
     };
   },
@@ -59,34 +79,43 @@ export default {
         this.editorInstance.pasteHTML(newVal);
       }
     },
-    stylesObject() {
-      const aux = this;
-      const currentPos = this.editorInstance.getSelection();
-      const currentStyle = this.editorInstance.getFormat(currentPos);
-      // merge current style with new one
-      this.newStyle = { ...currentStyle, ...this.stylesObject };
-
-      let { index, length } = { ...this.rangeSelected };
-
-      // Verify if text to modify is a range selection
-      if (this.rangeSelected?.length > 0) {
-        // before to apply the new style, validate if emoji command
-        if (this.newStyle?.emoji) {
-          this.multipleWordToEmoji(index, length);
+    currentStyle: {
+      handler() {
+        const aux = this;
+        let currentPos = this.editorInstance.getSelection();
+        if (this.popupmenu && !currentPos) {
+          currentPos = { index: this.editorInstance.length, length: 0 };
+        }
+        if (!currentPos) {
           return;
         }
-        this.editorInstance.formatText(index, length, this.newStyle);
-        return;
-      }
+        const oldStyle = this.editorInstance.getFormat(currentPos);
+        // merge current style with new one
+        this.newStyle = { ...oldStyle, ...this.currentStyle };
 
-      // When there is not range selected
-      Object.keys(DEFAULT_COMMANDS).forEach(function(command) {
-        if (aux.newStyle.hasOwnProperty(command)) {
-          aux.editorInstance.format(command, aux.newStyle[command]);
+        let { index, length } = { ...this.rangeSelected };
+
+        // Verify if text to modify is a range selection
+        if (this.rangeSelected?.length > 0) {
+          // before to apply the new style, validate if emoji command
+          if (this.newStyle?.emoji) {
+            this.multipleWordToEmoji(index, length);
+            return;
+          }
+          this.editorInstance.formatText(index, length, this.newStyle);
           return;
         }
-        aux.editorInstance.format(command, DEFAULT_COMMANDS[command]);
-      });
+
+        // When there is not range selected
+        Object.keys(DEFAULT_COMMANDS).forEach(function(command) {
+          if (aux.newStyle.hasOwnProperty(command)) {
+            aux.editorInstance.format(command, aux.newStyle[command]);
+            return;
+          }
+          aux.editorInstance.format(command, DEFAULT_COMMANDS[command]);
+        });
+      },
+      deep: true,
     },
 
     // Watch every time the editor content change
@@ -116,10 +145,18 @@ export default {
       }
     },
 
+    // When message is sent
     message() {
       if (!this.message) {
         this.editorInstance.setText("");
       }
+    },
+
+    // When change user destination
+    destination() {
+      this.editorInstance.setText("");
+      this.updateStyles(DEFAULT_COMMANDS);
+      this.emoji_menu = false;
     },
   },
 
@@ -136,18 +173,25 @@ export default {
   },
   computed: {
     ...mapState({
-      stylesObject: (state) => state.text.stylesObject,
+      currentStyle: (state) => state.text.currentStyle,
       message: (state) => state.text.message,
+      destination: (state) => state.chat.destination,
+      popupmenu: (state) => state.chat.popupmenu,
     }),
   },
 
   methods: {
-    ...mapActions({ updateMessage: "text/updateMessage" }),
+    ...mapActions({
+      updateMessage: "text/updateMessage",
+      updateStyles: "text/updateStyles",
+    }),
     initializeEditor() {
       // Set initial content that's going to be picked up by Quill
       this.$refs.editorNode.innerHTML = this.value;
       // Create the Quill instance
       this.editorInstance = new Quill(this.$refs.editorNode, this.editorOpts);
+
+      this.editorInstance.format(DEFAULT_COMMANDS);
 
       // Setup handler for whenever things change inside Quill
       this.editorInstance.on("text-change", this.onEditorContentChange);
@@ -241,6 +285,13 @@ export default {
         diff += item.length - newlength;
       });
     },
+    selectEmoji(emoji) {
+      const currentIndex = this.editorInstance.getText().length;
+      this.editorInstance.insertText(currentIndex - 1, emoji.data);
+    },
+    hideEmojiMenu() {
+      this.emoji_menu = false; // hide the emoji menu
+    },
   },
 };
 </script>
@@ -252,5 +303,9 @@ export default {
   border-radius: 20px;
   max-height: 75px;
   overflow-y: hidden;
+}
+.emoji-menu {
+  position: absolute;
+  bottom: 15%;
 }
 </style>
