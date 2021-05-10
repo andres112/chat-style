@@ -82,7 +82,10 @@ export default {
     currentStyle: {
       handler() {
         const aux = this;
-        const currentPos = this.editorInstance.getSelection();
+        let currentPos = this.editorInstance.getSelection();
+        if (this.popupmenu && !currentPos) {
+          currentPos = { index: this.editorInstance.length, length: 0 };
+        }
         if (!currentPos) {
           return;
         }
@@ -173,6 +176,7 @@ export default {
       currentStyle: (state) => state.text.currentStyle,
       message: (state) => state.text.message,
       destination: (state) => state.chat.destination,
+      popupmenu: (state) => state.chat.popupmenu,
     }),
   },
 

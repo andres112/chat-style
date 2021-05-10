@@ -90,13 +90,13 @@ import SimpleEditor from "@/components/SimpleEditor";
 import Speech from "@/components/Speech";
 import { mapActions, mapState } from "vuex";
 import { getObjectCommand } from "@/assets/voiceControl.js";
-import Indicators from '@/components/Indicators';
+import Indicators from "@/components/Indicators";
 
 export default {
   data: () => ({
     content: "",
     voice: false,
-    lastCommand: "",    
+    lastCommand: "",
   }),
   components: {
     SimpleEditor,
@@ -136,7 +136,7 @@ export default {
       updateMessage: "text/updateMessage",
       sendMessage: "chat/sendMessage",
       snapshotMessages: "chat/snapshotMessages",
-    }),
+    }),    
     onEnd({ transcription }) {
       this.lastCommand = transcription;
       if (transcription.includes("start")) {
@@ -159,7 +159,7 @@ export default {
       this.sendMessage();
       this.updateMessage(null);
     },
-  },  
+  },
 };
 </script>
 
