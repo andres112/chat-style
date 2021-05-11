@@ -3,7 +3,10 @@
     <v-btn icon :color="getColor" @click="listen()">
       <v-icon>fas fa-microphone-alt</v-icon>
     </v-btn>
-    <v-icon x-small :color="getColor">fas fa-circle</v-icon>
+
+    <v-btn icon :color="getCommandColor" x-small>
+      <v-icon>fas fa-dot-circle</v-icon>
+    </v-btn>
   </div>
 </template>
 
@@ -32,11 +35,17 @@ export default {
   computed: {
     ...mapState({
       destination: (state) => state.chat.destination,
-      recognition: (state) => state.chat.recognition,
+      commandsOn: (state) => state.chat.recognition,
     }),
     getColor() {
       if (this.recognizing) {
         return "light-green accent-4";
+      }
+      return "grey lighten-1";
+    },
+    getCommandColor() {
+      if (this.commandsOn) {
+        return "red accent-4";
       }
       return "grey lighten-1";
     },
@@ -141,3 +150,10 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.command-indicator{
+  width: 5px;
+  height: 5px;
+}
+</style>
