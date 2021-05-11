@@ -10,6 +10,7 @@ const state = {
     emoji: false,
     size: "large",
   },
+  invalid: false,
   message: null,
 };
 const getters = {
@@ -19,10 +20,13 @@ const getters = {
 };
 const mutations = {
   updateStyles(state, payload) {
-    state.currentStyle = {...state.currentStyle, ...payload};
+    state.currentStyle = { ...state.currentStyle, ...payload };
   },
   updateMessage(state, payload) {
     state.message = payload;
+  },
+  setInvalid(state, value) {
+    state.invalid = value;
   },
 };
 const actions = {

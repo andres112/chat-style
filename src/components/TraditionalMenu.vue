@@ -89,18 +89,11 @@ export default {
   components: { VSwatches },
   methods: {
     ...mapActions({ updateStyles: "text/updateStyles" }),
-    ...mapMutations({ setPopupMenu: "chat/setPopupMenu" }),
   },
   computed: {
     ...mapState({ currentStyle: (state) => state.text.currentStyle }),
     getItems() {
       return Object.keys(this.BOOLEAN_FORMAT);
-    },
-  },
-  watch: {
-    menu() {
-      this.setPopupMenu(this.menu);
-      console.log("Cambiando el menu" + this.menu);
     },
   },
 };

@@ -6,7 +6,7 @@ const state = {
   messages: [],
   chats: [], // state for identify all the chats associated to current user
   destination: null,
-  popupmenu: false,
+  recognition: false,
 };
 const mutations = {
   setMessages(state, payload = null) {
@@ -20,8 +20,8 @@ const mutations = {
   setDestination(state, payload) {
     state.destination = payload;
   },
-  setPopupMenu(state, value) {
-    state.popupmenu = value;
+  setRecognition(state, value) {
+    state.recognition = value;
   },
 };
 const actions = {
@@ -87,6 +87,10 @@ const actions = {
   },
   setDestination({ commit }, payload) {
     commit("setDestination", payload);
+  },
+
+  setRecognition({ commit }, value) {
+    commit("setRecognition", value);
   },
 };
 

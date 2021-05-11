@@ -64,7 +64,7 @@
               </v-col>
               <v-col cols="10">
                 <SimpleEditor v-model="content" />
-                <h5>{{ lastCommand }}</h5>
+                <!-- <h5>{{ lastCommand }}</h5> -->
               </v-col>
               <v-col cols="1">
                 <v-btn
@@ -136,21 +136,23 @@ export default {
       updateMessage: "text/updateMessage",
       sendMessage: "chat/sendMessage",
       snapshotMessages: "chat/snapshotMessages",
-    }),    
+      setRecognition: "chat/setRecognition",
+    }),
     onEnd({ transcription }) {
       this.lastCommand = transcription;
       if (transcription.includes("start")) {
         this.voice = true;
+        this.setRecognition(this.voice);
         return;
       }
       if (transcription.includes("stop")) {
         this.voice = false;
+        this.setRecognition(this.voice);
         return;
       }
       if (this.voice) {
         // transform the raw speech in recognized commands
         const objectCommand = getObjectCommand(transcription);
-        console.log(objectCommand);
         this.updateStyles(objectCommand);
       }
     },
@@ -166,6 +168,6 @@ export default {
 <style scoped>
 .chat-window {
   overflow: auto;
-  height: 70vh;
+  height: 73vh;
 }
 </style>

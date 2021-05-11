@@ -45,6 +45,7 @@
         fas fa-smile-wink
       </v-icon>
     </v-btn>
+    <span class="caption font-weight-medium red--text text--accent-4"> No valid commands detected</span>
   </v-container>
 </template>
 

@@ -1,7 +1,10 @@
 <template>
-  <v-btn icon :color="getColor" @click="listen()">
-    <v-icon>fas fa-microphone-alt</v-icon>
-  </v-btn>
+  <div>
+    <v-btn icon :color="getColor" @click="listen()">
+      <v-icon>fas fa-microphone-alt</v-icon>
+    </v-btn>
+    <v-icon x-small :color="getColor">fas fa-circle</v-icon>
+  </div>
 </template>
 
 <script>
@@ -27,7 +30,10 @@ export default {
   }),
 
   computed: {
-    ...mapState({ destination: (state) => state.chat.destination }),
+    ...mapState({
+      destination: (state) => state.chat.destination,
+      recognition: (state) => state.chat.recognition,
+    }),
     getColor() {
       if (this.recognizing) {
         return "light-green accent-4";

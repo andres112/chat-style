@@ -59,7 +59,8 @@ export const getObjectCommand = function(rawCommand) {
       }
     }
   }
-
+  
+  console.log(commands);
   return commands;
 };
 

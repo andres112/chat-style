@@ -1,12 +1,12 @@
 <template>
   <div class="simple-editor">
-    <v-emoji-picker
+    <!-- <v-emoji-picker
       @select="selectEmoji"
       v-show="emoji_menu"
       class="emoji-menu"
-    />
-    <div class="editor-node mx-2" ref="editorNode" @click="hideEmojiMenu"></div>
-    <v-container fluid d-inline-flex>
+    /> -->
+    <div class="editor-node mx-2" ref="editorNode"></div>
+    <!-- <v-container fluid d-inline-flex>
       <v-row>
         <v-btn icon @click="emoji_menu = !emoji_menu" class="mr-1">
           <v-icon>far fa-smile-beam</v-icon>
@@ -14,9 +14,9 @@
 
         <traditional-menu></traditional-menu>
       </v-row>
-      <!-- <pre>{{ newStyle }}</pre>
-      <pre>{{ editorContent }}</pre> -->
-    </v-container>
+      <pre>{{ newStyle }}</pre>
+      <pre>{{ editorContent }}</pre> 
+    </v-container> -->
   </div>
 </template>
 
@@ -83,9 +83,6 @@ export default {
       handler() {
         const aux = this;
         let currentPos = this.editorInstance.getSelection();
-        if (this.popupmenu && !currentPos) {
-          currentPos = { index: this.editorInstance.length, length: 0 };
-        }
         if (!currentPos) {
           return;
         }
@@ -176,7 +173,6 @@ export default {
       currentStyle: (state) => state.text.currentStyle,
       message: (state) => state.text.message,
       destination: (state) => state.chat.destination,
-      popupmenu: (state) => state.chat.popupmenu,
     }),
   },
 
