@@ -13,6 +13,8 @@ import { auth } from "@/firebase"; // get authentication features from firebase
 Vue.config.productionTip = false;
 Vue.use(VueChatScroll);
 
+Vue.component("Notifications", () => import("@/components/Notifications"));
+
 auth.onAuthStateChanged(function(user) {
   if (user) {
     const res = User({ user: user });

@@ -137,21 +137,25 @@ export default {
       sendMessage: "chat/sendMessage",
       snapshotMessages: "chat/snapshotMessages",
       setRecognition: "chat/setRecognition",
+      setNotificationInfo: "settings/setNotificationInfo",
     }),
     onEnd({ transcription }) {
       this.lastCommand = transcription;
       if (transcription.includes("start")) {
         this.voice = true;
         this.setRecognition(this.voice);
+        this.setNotificationInfo("Voice Command On");
         return;
       }
       if (transcription.includes("stop")) {
         this.voice = false;
         this.setRecognition(this.voice);
+        this.setNotificationInfo("Voice Command Off");
         return;
       }
       if (this.voice) {
         // transform the raw speech in recognized commands
+        console.log(this.lastCommand);
         const objectCommand = getObjectCommand(transcription);
         this.updateStyles(objectCommand);
       }

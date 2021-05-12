@@ -1,33 +1,15 @@
 <template>
   <div class="simple-editor">
-    <!-- <v-emoji-picker
-      @select="selectEmoji"
-      v-show="emoji_menu"
-      class="emoji-menu"
-    /> -->
     <div class="editor-node mx-2" ref="editorNode"></div>
-    <!-- <v-container fluid d-inline-flex>
-      <v-row>
-        <v-btn icon @click="emoji_menu = !emoji_menu" class="mr-1">
-          <v-icon>far fa-smile-beam</v-icon>
-        </v-btn>
-
-        <traditional-menu></traditional-menu>
-      </v-row>
-      <pre>{{ newStyle }}</pre>
-      <pre>{{ editorContent }}</pre> 
-    </v-container> -->
   </div>
 </template>
 
 <script>
 import Quill from "quill";
 import { mapState, mapActions } from "vuex";
-import { VEmojiPicker } from "v-emoji-picker";
 
 // emoji-translator.js library as feature for editor
 import Translator from "@/assets/emoji-translator.js";
-import TraditionalMenu from "./TraditionalMenu.vue";
 
 const DEFAULT_COMMANDS = {
   bold: false,
@@ -47,10 +29,6 @@ export default {
       default: "",
       type: String,
     },
-  },
-  components: {
-    VEmojiPicker,
-    TraditionalMenu,
   },
 
   data() {
@@ -99,7 +77,15 @@ export default {
             this.multipleWordToEmoji(index, length);
             return;
           }
-          this.editorInstance.formatText(index, length, this.newStyle);
+
+          const multipleStyles = this.getMultipleStyles(index, length);
+          multipleStyles.forEach((x) => {
+            
+            // include new commands to the current style
+            x = { ...x, ...aux.currentCommands };
+            aux.editorInstance.formatText(x.index, x.length, x);
+          });
+
           return;
         }
 
@@ -173,6 +159,7 @@ export default {
       currentStyle: (state) => state.text.currentStyle,
       message: (state) => state.text.message,
       destination: (state) => state.chat.destination,
+      currentCommands: (state) => state.text.currentCommands,
     }),
   },
 
@@ -276,6 +263,10 @@ export default {
         const newlength = emojiText[id].length;
         // Remove format set by previous insert, which is wrong
         aux.editorInstance.removeFormat(item.index, newlength);
+
+        // include new commands to the current style
+        item = { ...item, ...aux.currentCommands };
+
         // asing style to block of text
         aux.editorInstance.formatText(item.index, newlength, item);
         diff += item.length - newlength;

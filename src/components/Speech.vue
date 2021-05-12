@@ -11,7 +11,7 @@
 </template>
 
 <script>
-import { mapState } from "vuex";
+import { mapState, mapActions } from "vuex";
 export default {
   name: "speech",
 
@@ -52,6 +52,7 @@ export default {
   },
 
   methods: {
+    ...mapActions({ setNotificationInfo: "settings/setNotificationInfo" }),
     initialize() {
       if (!("webkitSpeechRecognition" in window)) {
         upgrade();
@@ -125,9 +126,11 @@ export default {
       if (this.recognizing) {
         this.recognition.stop();
         this.recognizing = false;
+        this.setNotificationInfo("Speech Recognition Off")
         return;
       }
       this.recognition.start();
+      this.setNotificationInfo("Speech Recognition On")
       this.ignore_onend = false;
       this.transcription = [];
       this.runtimeTranscription = "";
@@ -152,7 +155,7 @@ export default {
 </script>
 
 <style scoped>
-.command-indicator{
+.command-indicator {
   width: 5px;
   height: 5px;
 }

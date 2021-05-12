@@ -10,6 +10,7 @@ const state = {
     emoji: false,
     size: "large",
   },
+  currentCommands: {},
   invalid: false,
   message: null,
 };
@@ -21,6 +22,12 @@ const getters = {
 const mutations = {
   updateStyles(state, payload) {
     state.currentStyle = { ...state.currentStyle, ...payload };
+    state.currentCommands = payload;
+
+    // remove emoji parameter becuase is not a text format
+    if (state.currentCommands?.emoji) {
+      delete state.currentCommands.emoji;
+    }
   },
   updateMessage(state, payload) {
     state.message = payload;

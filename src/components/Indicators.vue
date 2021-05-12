@@ -45,7 +45,14 @@
         fas fa-smile-wink
       </v-icon>
     </v-btn>
-    <span class="caption font-weight-medium red--text text--accent-4"> No valid commands detected</span>
+    <span
+      class="caption font-weight-medium red--text text--accent-4"
+      v-if="invalid"
+    >
+      <v-icon color="red accent-4">
+        fas fa-exclamation-circle
+      </v-icon> Unrecognized Style</span
+    >
   </v-container>
 </template>
 
@@ -72,6 +79,7 @@ export default {
   computed: {
     ...mapState({
       currentStyle: (state) => state.text.currentStyle,
+      invalid: (state) => state.text.invalid,
     }),
   },
   methods: {
