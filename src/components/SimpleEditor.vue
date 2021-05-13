@@ -80,7 +80,6 @@ export default {
 
           const multipleStyles = this.getMultipleStyles(index, length);
           multipleStyles.forEach((x) => {
-            
             // include new commands to the current style
             x = { ...x, ...aux.currentCommands };
             aux.editorInstance.formatText(x.index, x.length, x);

@@ -88,7 +88,7 @@
 <script>
 import SimpleEditor from "@/components/SimpleEditor";
 import Speech from "@/components/Speech";
-import { mapActions, mapState } from "vuex";
+import { mapActions, mapState, mapMutations } from "vuex";
 import { getObjectCommand } from "@/assets/voiceControl.js";
 import Indicators from "@/components/Indicators";
 
@@ -139,12 +139,25 @@ export default {
       setRecognition: "chat/setRecognition",
       setNotificationInfo: "settings/setNotificationInfo",
     }),
+
+    ...mapMutations({
+      clearEvaluation: "evaluation/clearEvaluation",
+      setStartTime: "evaluation/setStartTime",
+      setEndTime: "evaluation/setEndTime",
+      saveCommand: "evaluation/saveCommand",
+    }),
     onEnd({ transcription }) {
       this.lastCommand = transcription;
       if (transcription.includes("start")) {
-        this.voice = true;
-        this.setRecognition(this.voice);
-        this.setNotificationInfo("Voice Command On");
+        if (!this.voice) {
+          this.voice = true;
+          this.setRecognition(this.voice);
+          this.setNotificationInfo("Voice Command On");
+
+          // For TESTING
+          this.clearEvaluation();
+          this.setStartTime();
+        }
         return;
       }
       if (transcription.includes("stop")) {
@@ -158,17 +171,23 @@ export default {
         console.log(this.lastCommand);
         const objectCommand = getObjectCommand(transcription);
         this.updateStyles(objectCommand);
+
+        // For TESTING
+        this.saveCommand(transcription);
       }
     },
     send(msg) {
+      this.sendMessage();
+      this.updateMessage(null);
+
       // Clear commands for TESTING
       const objectCommand = getObjectCommand("normal");
       this.updateStyles(objectCommand);
       // Clear start command and stop speech recongition for TESTING
       this.onEnd({ transcription: "stop" });
 
-      this.sendMessage();
-      this.updateMessage(null);
+      // For TESTING
+      this.setEndTime();
     },
   },
 };
@@ -177,6 +196,6 @@ export default {
 <style scoped>
 .chat-window {
   overflow: auto;
-  height: 73vh;
+  height: 72vh;
 }
 </style>
