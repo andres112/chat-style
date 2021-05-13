@@ -60,7 +60,7 @@
           <v-form @submit.prevent="send({ msg: message })">
             <v-row no-gutters class="mt-1">
               <v-col cols="1" class=" text-left text-sm-right">
-                <speech @onTranscriptionEnd="onEnd" :isListening="voice" />
+                <speech @onTranscriptionEnd="onEnd" />
               </v-col>
               <v-col cols="10">
                 <SimpleEditor v-model="content" />
@@ -161,7 +161,12 @@ export default {
       }
     },
     send(msg) {
-      console.log(msg);
+      // Clear commands for TESTING
+      const objectCommand = getObjectCommand("normal");
+      this.updateStyles(objectCommand);
+      // Clear start command and stop speech recongition for TESTING
+      this.onEnd({ transcription: "stop" });
+
       this.sendMessage();
       this.updateMessage(null);
     },

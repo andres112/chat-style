@@ -20,7 +20,6 @@ export default {
       type: String,
       default: "en-US",
     },
-    isListening: { type: Boolean, default: false },
   },
 
   data: () => ({
@@ -61,15 +60,6 @@ export default {
         this.recognition = new webkitSpeechRecognition();
         this.recognition.continuous = true;
         this.recognition.interimResults = true;
-
-        // var SpeechGrammarList = SpeechGrammarList || webkitSpeechGrammarList
-        // var grammar =
-        //   "#JSGF V1.0; grammar colors; public <color> = aqua | azure | beige | bisque | black | blue | brown | chocolate | coral | crimson | cyan | fuchsia | ghostwhite | gold | goldenrod | gray | green | indigo | ivory | khaki | lavender | lime | linen | magenta | maroon | moccasin | navy | olive | orange | orchid | peru | pink | plum | purple | red | salmon | sienna | silver | snow | tan | teal | thistle | tomato | turquoise | violet | white | yellow ;";
-        // this.speechGrammarList = new SpeechGrammarList();
-        // this.speechGrammarList.addFromString(grammar, 1);
-        // this.recognition.grammars = this.speechGrammarList;
-
-        // console.log(this.speechGrammarList[0]);
 
         // Recognition start
         this.recognition.onstart = function() {
@@ -126,11 +116,11 @@ export default {
       if (this.recognizing) {
         this.recognition.stop();
         this.recognizing = false;
-        this.setNotificationInfo("Speech Recognition Off")
+        this.setNotificationInfo("Speech Recognition Off");
         return;
       }
       this.recognition.start();
-      this.setNotificationInfo("Speech Recognition On")
+      this.setNotificationInfo("Speech Recognition On");
       this.ignore_onend = false;
       this.transcription = [];
       this.runtimeTranscription = "";
