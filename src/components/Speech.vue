@@ -11,7 +11,9 @@
 </template>
 
 <script>
-import { mapState, mapActions } from "vuex";
+import { mapState, mapActions, mapMutations } from "vuex";
+import { CreateTestID } from "@/helpers";
+
 export default {
   name: "speech",
 
@@ -52,6 +54,8 @@ export default {
 
   methods: {
     ...mapActions({ setNotificationInfo: "settings/setNotificationInfo" }),
+    //TODO: REMOVE AND TRANSFER TO CALIBRATION SECTION
+    ...mapMutations({ setTestID: "evaluation/setTestID" }),
     initialize() {
       if (!("webkitSpeechRecognition" in window)) {
         upgrade();
@@ -90,7 +94,7 @@ export default {
 
         // Recognition result
         this.recognition.onresult = function(event) {
-          aux.runtimeTranscription = ""; //TODO: remove if is not required
+          aux.runtimeTranscription = "";
           aux.transcription = "";
           for (var i = event.resultIndex; i < event.results.length; ++i) {
             if (event.results[i].isFinal) {
@@ -124,6 +128,8 @@ export default {
       this.ignore_onend = false;
       this.transcription = [];
       this.runtimeTranscription = "";
+      //TODO: REMOVE AND TRANSFER TO CALIBRATION SECTION
+      this.setTestID(CreateTestID());
     },
   },
 

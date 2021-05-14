@@ -1,7 +1,7 @@
 <template>
   <v-container>
     <v-row no-gutters>
-      <v-col align-self="end">
+      <v-col cols="6" align-self="end">
         <v-btn class="mr-2" :color="indicators.bold" x-small icon>
           <v-icon>
             fas fa-bold
@@ -58,7 +58,7 @@
         </span>
       </v-col>
       <v-spacer></v-spacer>
-      <v-col align-self="end" class="d-flex justify-end">
+      <v-col cols="4" align-self="end" class="d-flex justify-end">
         <v-radio-group row v-model="evaluationType">
           <v-radio label="Continuous" value="con"></v-radio>
           <v-radio label="Selection" value="sel"></v-radio>
@@ -69,7 +69,7 @@
 </template>
 
 <script>
-import { mapState, mapMutations } from "vuex";
+import { mapState } from "vuex";
 
 export default {
   name: "Indicators",
@@ -86,7 +86,6 @@ export default {
         background: null,
         emoji: null,
       },
-      evaluationType: null,
     };
   },
   computed: {
@@ -94,9 +93,17 @@ export default {
       currentStyle: (state) => state.text.currentStyle,
       invalid: (state) => state.text.invalid,
     }),
+    // For TESTING purposes
+    evaluationType: {
+      get() {
+        return this.$store.state.evaluation.evaluationType;
+      },
+      set(value) {
+        this.$store.commit("evaluation/setType",value);
+      },
+    },
   },
   methods: {
-    ...mapMutations({ setType: "evaluation/setType" }),
     getIconColor(data) {
       if (data) {
         return "light-green accent-4";
@@ -126,11 +133,6 @@ export default {
         this.indicators.emoji = this.getIconColor(this.currentStyle.emoji);
       },
       deep: true,
-    },
-
-    // For TESTING purposes
-    evaluationType() {
-      this.setType(this.evaluationType);
     },
   },
 };

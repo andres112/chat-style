@@ -20,7 +20,6 @@ const DEFAULT_COMMANDS = {
   background: "",
   script: "",
   emoji: false,
-  size: "large",
 };
 
 export default {

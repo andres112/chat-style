@@ -116,6 +116,8 @@ export default {
       destination: (state) => state.chat.destination,
       message: (state) => state.text.message,
       messages: (state) => state.chat.messages,
+      // For TESTING purposes
+      evaluationType: (state) => state.evaluation.evaluationType,
     }),
     chatWidth() {
       switch (this.$vuetify.breakpoint.name) {
@@ -138,6 +140,7 @@ export default {
       snapshotMessages: "chat/snapshotMessages",
       setRecognition: "chat/setRecognition",
       setNotificationInfo: "settings/setNotificationInfo",
+      sendEvaluation: "evaluation/sendEvaluation",
     }),
 
     ...mapMutations({
@@ -154,8 +157,7 @@ export default {
           this.setRecognition(this.voice);
           this.setNotificationInfo("Voice Command On");
 
-          // For TESTING
-          this.clearEvaluation();
+          // For TESTING          
           this.setStartTime();
         }
         return;
@@ -180,14 +182,17 @@ export default {
       this.sendMessage();
       this.updateMessage(null);
 
-      // Clear commands for TESTING
+      // Clear commands for TESTING //
       const objectCommand = getObjectCommand("normal");
       this.updateStyles(objectCommand);
       // Clear start command and stop speech recongition for TESTING
       this.onEnd({ transcription: "stop" });
-
       // For TESTING
       this.setEndTime();
+      // For TESTING: send evaluation results
+      this.sendEvaluation();
+      // For TESTING: clean the data for next task
+      this.clearEvaluation();
     },
   },
 };

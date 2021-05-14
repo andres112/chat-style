@@ -26,7 +26,6 @@ export const getObjectCommand = function(rawCommand) {
       background: "",
       emoji: false,
       script: "",
-      size: "large",
     };
     validCommand = true;
     return commands;
