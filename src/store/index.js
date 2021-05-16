@@ -4,6 +4,7 @@ import user from "./modules/user";
 import text from "./modules/text";
 import chat from "./modules/chat";
 import settings from "./modules/settings";
+import evaluation from "./modules/evaluation";
 
 Vue.use(Vuex);
 
@@ -15,6 +16,7 @@ export default new Vuex.Store({
     user,
     text,
     chat,
-    settings
+    settings,
+    evaluation,
   },
 });

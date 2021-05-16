@@ -20,7 +20,6 @@ const DEFAULT_COMMANDS = {
   background: "",
   script: "",
   emoji: false,
-  size: "large",
 };
 
 export default {
@@ -80,7 +79,6 @@ export default {
 
           const multipleStyles = this.getMultipleStyles(index, length);
           multipleStyles.forEach((x) => {
-            
             // include new commands to the current style
             x = { ...x, ...aux.currentCommands };
             aux.editorInstance.formatText(x.index, x.length, x);

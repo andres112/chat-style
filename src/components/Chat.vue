@@ -60,7 +60,7 @@
           <v-form @submit.prevent="send({ msg: message })">
             <v-row no-gutters class="mt-1">
               <v-col cols="1" class=" text-left text-sm-right">
-                <speech @onTranscriptionEnd="onEnd" :isListening="voice" />
+                <speech @onTranscriptionEnd="onEnd" />
               </v-col>
               <v-col cols="10">
                 <SimpleEditor v-model="content" />
@@ -88,7 +88,7 @@
 <script>
 import SimpleEditor from "@/components/SimpleEditor";
 import Speech from "@/components/Speech";
-import { mapActions, mapState } from "vuex";
+import { mapActions, mapState, mapMutations } from "vuex";
 import { getObjectCommand } from "@/assets/voiceControl.js";
 import Indicators from "@/components/Indicators";
 
@@ -116,6 +116,8 @@ export default {
       destination: (state) => state.chat.destination,
       message: (state) => state.text.message,
       messages: (state) => state.chat.messages,
+      // For TESTING purposes
+      evaluationType: (state) => state.evaluation.evaluationType,
     }),
     chatWidth() {
       switch (this.$vuetify.breakpoint.name) {
@@ -138,13 +140,26 @@ export default {
       snapshotMessages: "chat/snapshotMessages",
       setRecognition: "chat/setRecognition",
       setNotificationInfo: "settings/setNotificationInfo",
+      sendEvaluation: "evaluation/sendEvaluation",
+    }),
+
+    ...mapMutations({
+      clearEvaluation: "evaluation/clearEvaluation",
+      setStartTime: "evaluation/setStartTime",
+      setEndTime: "evaluation/setEndTime",
+      saveCommand: "evaluation/saveCommand",
     }),
     onEnd({ transcription }) {
       this.lastCommand = transcription;
       if (transcription.includes("start")) {
-        this.voice = true;
-        this.setRecognition(this.voice);
-        this.setNotificationInfo("Voice Command On");
+        if (!this.voice) {
+          this.voice = true;
+          this.setRecognition(this.voice);
+          this.setNotificationInfo("Voice Command On");
+
+          // For TESTING          
+          this.setStartTime();
+        }
         return;
       }
       if (transcription.includes("stop")) {
@@ -158,12 +173,26 @@ export default {
         console.log(this.lastCommand);
         const objectCommand = getObjectCommand(transcription);
         this.updateStyles(objectCommand);
+
+        // For TESTING
+        this.saveCommand(transcription);
       }
     },
     send(msg) {
-      console.log(msg);
       this.sendMessage();
       this.updateMessage(null);
+
+      // Clear commands for TESTING //
+      const objectCommand = getObjectCommand("normal");
+      this.updateStyles(objectCommand);
+      // Clear start command and stop speech recongition for TESTING
+      this.onEnd({ transcription: "stop" });
+      // For TESTING
+      this.setEndTime();
+      // For TESTING: send evaluation results
+      this.sendEvaluation();
+      // For TESTING: clean the data for next task
+      this.clearEvaluation();
     },
   },
 };
@@ -172,6 +201,6 @@ export default {
 <style scoped>
 .chat-window {
   overflow: auto;
-  height: 73vh;
+  height: 72vh;
 }
 </style>

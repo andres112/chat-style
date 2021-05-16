@@ -8,7 +8,6 @@ const state = {
     background: "",
     script: "",
     emoji: false,
-    size: "large",
   },
   currentCommands: {},
   invalid: false,

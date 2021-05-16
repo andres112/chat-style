@@ -11,7 +11,9 @@
 </template>
 
 <script>
-import { mapState, mapActions } from "vuex";
+import { mapState, mapActions, mapMutations } from "vuex";
+import { CreateTestID } from "@/helpers";
+
 export default {
   name: "speech",
 
@@ -20,7 +22,6 @@ export default {
       type: String,
       default: "en-US",
     },
-    isListening: { type: Boolean, default: false },
   },
 
   data: () => ({
@@ -53,6 +54,8 @@ export default {
 
   methods: {
     ...mapActions({ setNotificationInfo: "settings/setNotificationInfo" }),
+    //TODO: REMOVE AND TRANSFER TO CALIBRATION SECTION
+    ...mapMutations({ setTestID: "evaluation/setTestID" }),
     initialize() {
       if (!("webkitSpeechRecognition" in window)) {
         upgrade();
@@ -61,15 +64,6 @@ export default {
         this.recognition = new webkitSpeechRecognition();
         this.recognition.continuous = true;
         this.recognition.interimResults = true;
-
-        // var SpeechGrammarList = SpeechGrammarList || webkitSpeechGrammarList
-        // var grammar =
-        //   "#JSGF V1.0; grammar colors; public <color> = aqua | azure | beige | bisque | black | blue | brown | chocolate | coral | crimson | cyan | fuchsia | ghostwhite | gold | goldenrod | gray | green | indigo | ivory | khaki | lavender | lime | linen | magenta | maroon | moccasin | navy | olive | orange | orchid | peru | pink | plum | purple | red | salmon | sienna | silver | snow | tan | teal | thistle | tomato | turquoise | violet | white | yellow ;";
-        // this.speechGrammarList = new SpeechGrammarList();
-        // this.speechGrammarList.addFromString(grammar, 1);
-        // this.recognition.grammars = this.speechGrammarList;
-
-        // console.log(this.speechGrammarList[0]);
 
         // Recognition start
         this.recognition.onstart = function() {
@@ -100,7 +94,7 @@ export default {
 
         // Recognition result
         this.recognition.onresult = function(event) {
-          aux.runtimeTranscription = ""; //TODO: remove if is not required
+          aux.runtimeTranscription = "";
           aux.transcription = "";
           for (var i = event.resultIndex; i < event.results.length; ++i) {
             if (event.results[i].isFinal) {
@@ -126,14 +120,16 @@ export default {
       if (this.recognizing) {
         this.recognition.stop();
         this.recognizing = false;
-        this.setNotificationInfo("Speech Recognition Off")
+        this.setNotificationInfo("Speech Recognition Off");
         return;
       }
       this.recognition.start();
-      this.setNotificationInfo("Speech Recognition On")
+      this.setNotificationInfo("Speech Recognition On");
       this.ignore_onend = false;
       this.transcription = [];
       this.runtimeTranscription = "";
+      //TODO: REMOVE AND TRANSFER TO CALIBRATION SECTION
+      this.setTestID(CreateTestID());
     },
   },
 

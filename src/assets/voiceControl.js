@@ -5,8 +5,7 @@ export const getObjectCommand = function(rawCommand) {
   // Initialize the no valid indicator
   store.commit("text/setInvalid", false);
   let validCommand = false;
-  // emoji command require special treatment
-  commands["emoji"] = store.getters["text/getIsEmoji"];
+
   const array = rawCommand
     .toLowerCase()
     .trim()
@@ -27,7 +26,6 @@ export const getObjectCommand = function(rawCommand) {
       background: "",
       emoji: false,
       script: "",
-      size: "large",
     };
     validCommand = true;
     return commands;
@@ -62,7 +60,7 @@ export const getObjectCommand = function(rawCommand) {
     validCommand = true;
   }
   // validate remove style
-  if (rawCommand.includes("remove")) {
+  if (["remove", "remote"].some((x) => rawCommand.includes(x))) {
     for (const key in commands) {
       commands[key] = typeof commands[key] === "boolean" ? false : "";
       // emoji command requires special treatment
@@ -73,10 +71,14 @@ export const getObjectCommand = function(rawCommand) {
     }
   }
 
+  // emoji command require special treatment
+  commands["emoji"] = store.getters["text/getIsEmoji"];
+
   console.log(commands);
   // show invalid command indicator
   if (!validCommand) {
     store.commit("text/setInvalid", true);
+    store.commit("evaluation/countErrors");
   }
   return commands;
 };
