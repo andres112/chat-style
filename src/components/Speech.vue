@@ -1,10 +1,19 @@
 <template>
-  <v-btn icon :color="getColor" @click="listen()">
-    <v-icon>fas fa-microphone-alt</v-icon>
-  </v-btn>
+  <div>
+    <v-btn icon :color="getColor" @click="listen()">
+      <v-icon>fas fa-microphone-alt</v-icon>
+    </v-btn>
+
+    <v-btn icon :color="getCommandColor" x-small>
+      <v-icon>fas fa-dot-circle</v-icon>
+    </v-btn>
+  </div>
 </template>
 
 <script>
+import { mapState, mapActions, mapMutations } from "vuex";
+import { CreateTestID } from "@/helpers";
+
 export default {
   name: "speech",
 
@@ -13,7 +22,6 @@ export default {
       type: String,
       default: "en-US",
     },
-    isListening: { type: Boolean, default: false },
   },
 
   data: () => ({
@@ -26,15 +34,28 @@ export default {
   }),
 
   computed: {
+    ...mapState({
+      destination: (state) => state.chat.destination,
+      commandsOn: (state) => state.chat.recognition,
+    }),
     getColor() {
       if (this.recognizing) {
         return "light-green accent-4";
       }
       return "grey lighten-1";
     },
+    getCommandColor() {
+      if (this.commandsOn) {
+        return "red accent-4";
+      }
+      return "grey lighten-1";
+    },
   },
 
   methods: {
+    ...mapActions({ setNotificationInfo: "settings/setNotificationInfo" }),
+    //TODO: REMOVE AND TRANSFER TO CALIBRATION SECTION
+    ...mapMutations({ setTestID: "evaluation/setTestID" }),
     initialize() {
       if (!("webkitSpeechRecognition" in window)) {
         upgrade();
@@ -43,15 +64,6 @@ export default {
         this.recognition = new webkitSpeechRecognition();
         this.recognition.continuous = true;
         this.recognition.interimResults = true;
-
-        // var SpeechGrammarList = SpeechGrammarList || webkitSpeechGrammarList
-        // var grammar =
-        //   "#JSGF V1.0; grammar colors; public <color> = aqua | azure | beige | bisque | black | blue | brown | chocolate | coral | crimson | cyan | fuchsia | ghostwhite | gold | goldenrod | gray | green | indigo | ivory | khaki | lavender | lime | linen | magenta | maroon | moccasin | navy | olive | orange | orchid | peru | pink | plum | purple | red | salmon | sienna | silver | snow | tan | teal | thistle | tomato | turquoise | violet | white | yellow ;";
-        // this.speechGrammarList = new SpeechGrammarList();
-        // this.speechGrammarList.addFromString(grammar, 1);
-        // this.recognition.grammars = this.speechGrammarList;
-
-        // console.log(this.speechGrammarList[0]);
 
         // Recognition start
         this.recognition.onstart = function() {
@@ -82,7 +94,7 @@ export default {
 
         // Recognition result
         this.recognition.onresult = function(event) {
-          aux.runtimeTranscription = ""; //TODO: remove if is not required
+          aux.runtimeTranscription = "";
           aux.transcription = "";
           for (var i = event.resultIndex; i < event.results.length; ++i) {
             if (event.results[i].isFinal) {
@@ -108,12 +120,24 @@ export default {
       if (this.recognizing) {
         this.recognition.stop();
         this.recognizing = false;
+        this.setNotificationInfo("Speech Recognition Off");
         return;
       }
       this.recognition.start();
+      this.setNotificationInfo("Speech Recognition On");
       this.ignore_onend = false;
       this.transcription = [];
       this.runtimeTranscription = "";
+      //TODO: REMOVE AND TRANSFER TO CALIBRATION SECTION
+      this.setTestID(CreateTestID());
+    },
+  },
+
+  watch: {
+    destination() {
+      if (this.recognizing) {
+        this.listen();
+      }
     },
   },
 
@@ -125,3 +149,10 @@ export default {
   },
 };
 </script>
+
+<style scoped>
+.command-indicator {
+  width: 5px;
+  height: 5px;
+}
+</style>

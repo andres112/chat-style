@@ -1,9 +1,17 @@
 <template>
   <v-app-bar color="light-green darken-2" dark clipped-left app>
-    <v-app-bar-nav-icon class="mx-1" icon x-large @click.stop="hideSidebar" v-if="user.uid">
+    <v-app-bar-nav-icon
+      class="mx-1"
+      icon
+      x-large
+      @click.stop="hideSidebar"
+      v-if="user.uid"
+    >
       <v-icon>fas fa-users</v-icon>
     </v-app-bar-nav-icon>
     <v-toolbar-title class="headline">Style Me</v-toolbar-title>
+    <v-spacer></v-spacer>
+    <v-toolbar-title class="text-h3" v-if="test_id">{{ test_id }}</v-toolbar-title>
     <v-spacer></v-spacer>
     <div v-if="user.uid">
       <span class="subtitle-1 mr-2" v-if="$vuetify.breakpoint.smAndUp">{{
@@ -34,7 +42,10 @@ export default {
       hideCalibrate: false
   }),
   computed: {
-    ...mapState({ user: (state) => state.user.user }),
+    ...mapState({
+      user: (state) => state.user.user,
+      test_id: (state) => state.evaluation.test_id,
+    }),
   },
   methods: {
     ...mapActions({

@@ -6,6 +6,7 @@ const state = {
   messages: [],
   chats: [], // state for identify all the chats associated to current user
   destination: null,
+  recognition: false,
 };
 const mutations = {
   setMessages(state, payload = null) {
@@ -18,6 +19,9 @@ const mutations = {
   },
   setDestination(state, payload) {
     state.destination = payload;
+  },
+  setRecognition(state, value) {
+    state.recognition = value;
   },
 };
 const actions = {
@@ -72,17 +76,21 @@ const actions = {
   },
   async createChatIndex({ dispatch }, content) {
     try {
-          const res = await db
-            .collection("chat_index")
-            .doc(content.chat_id)
-            .set(content);
-          dispatch("user/getChatList", null, { root: true }); // refresh the chat list for current user
-        } catch (error) {
+      const res = await db
+        .collection("chat_index")
+        .doc(content.chat_id)
+        .set(content);
+      dispatch("user/getChatList", null, { root: true }); // refresh the chat list for current user
+    } catch (error) {
       console.log(error.message);
     }
   },
   setDestination({ commit }, payload) {
     commit("setDestination", payload);
+  },
+
+  setRecognition({ commit }, value) {
+    commit("setRecognition", value);
   },
 };
 

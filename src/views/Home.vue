@@ -1,5 +1,6 @@
 <template>
   <div>
+    <notifications></notifications>
     <chat></chat>
   </div>
 </template>
@@ -10,7 +11,7 @@ import Chat from "@/components/Chat";
 export default {
   name: "Home",
   components: {
-    Chat,
+    Chat
   },
 };
 </script>

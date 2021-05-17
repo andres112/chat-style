@@ -1,22 +1,38 @@
 const state = {
-  stylesObject: {},
-  isEmoji: false,
+  currentStyle: {
+    bold: false,
+    italic: false,
+    underline: false,
+    strike: false,
+    color: "",
+    background: "",
+    script: "",
+    emoji: false,
+  },
+  currentCommands: {},
+  invalid: false,
   message: null,
 };
 const getters = {
   getIsEmoji: (state) => {
-    return state.isEmoji;
+    return state.currentStyle.emoji;
   },
 };
 const mutations = {
   updateStyles(state, payload) {
-    state.stylesObject = payload;
+    state.currentStyle = { ...state.currentStyle, ...payload };
+    state.currentCommands = payload;
+
+    // remove emoji parameter becuase is not a text format
+    if (state.currentCommands?.emoji) {
+      delete state.currentCommands.emoji;
+    }
   },
   updateMessage(state, payload) {
     state.message = payload;
   },
-  updateEmoji(state, payload) {
-    state.isEmoji = payload;
+  setInvalid(state, value) {
+    state.invalid = value;
   },
 };
 const actions = {
@@ -25,9 +41,6 @@ const actions = {
   },
   updateMessage({ commit }, message) {
     commit("updateMessage", message);
-  },
-  updateEmoji({ commit }, value) {
-    commit("updateEmoji", value);
   },
 };
 
