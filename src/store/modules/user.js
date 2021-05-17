@@ -91,6 +91,11 @@ const actions = {
 
   // Storage the user in User database
   async createUserDB({ commit }, user) {
+    user.isNewUser = false;
+    db.collection("user").doc(user.email).get().then((doc) => {
+      if (doc.exists === false) {
+        user.isNewUser = true;
+      }});
     await db
       .collection("user")
       .doc(user.uid)
@@ -114,11 +119,29 @@ const actions = {
     if (rootState.settings.sidebarOn) {
       dispatch("settings/toogleSidebar", null, { root: true });
     }
+    window.user = "";
     router.push("/user");
+  },
+
+  voicecalibration({ commit, rootState, dispatch }) {
+    router.push("/calibration");
+  },
+
+  cancelCalibration({ commit, rootState, dispatch }) {
+    db.collection("keyWords").doc(window.user.uid).get().then((doc) => {
+      if (doc.exists === true) {
+        window.user.calibration = doc.data();
+    }});
+    router.push("/");
   },
 
   // Set current user
   setUser({ commit }, user) {
+    window.user = user;
+    db.collection("keyWords").doc(window.user.uid).get().then((doc) => {
+      if (doc.exists === true) {
+        window.user.calibration = doc.data();
+    }});
     commit("setUser", user);
   },
 
