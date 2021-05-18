@@ -60,12 +60,13 @@ export default {
     keyWords: [
       "START",
       "BOLD",
+      "STRONG",
       "ITALIC",
       "HIGHLIGHT",
-      "COLOR",
       "UNDERLINE",
       "STRIKE",
-      "STOP",
+      "EMOJI",
+      "STOP"
     ],
     keyWordCount: 0,
     oldKeyWord: "",
