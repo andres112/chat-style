@@ -62,11 +62,8 @@ export default {
       "BOLD",
       "STRONG",
       "ITALIC",
-      "HIGHLIGHT",
-      "UNDERLINE",
-      "STRIKE",
-      "EMOJI",
-      "STOP"
+      "REMOVE",
+      "EMOJI"
     ],
     keyWordCount: 0,
     oldKeyWord: "",
