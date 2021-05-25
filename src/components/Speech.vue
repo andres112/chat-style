@@ -37,6 +37,7 @@ export default {
     ...mapState({
       destination: (state) => state.chat.destination,
       commandsOn: (state) => state.chat.recognition,
+      user: (state) => state.user.user,
     }),
     getColor() {
       if (this.recognizing) {
@@ -129,7 +130,8 @@ export default {
       this.transcription = [];
       this.runtimeTranscription = "";
       //TODO: REMOVE AND TRANSFER TO CALIBRATION SECTION
-      this.setTestID(CreateTestID());
+      // this.setTestID(CreateTestID());
+      this.setTestID(this.user.name);
     },
   },
 

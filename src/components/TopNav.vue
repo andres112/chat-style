@@ -11,7 +11,7 @@
     </v-app-bar-nav-icon>
     <v-toolbar-title class="headline">Style Me</v-toolbar-title>
     <v-spacer></v-spacer>
-    <v-toolbar-title class="text-h3" v-if="test_id">{{ test_id }}</v-toolbar-title>
+    <!-- <v-toolbar-title class="text-h3" v-if="test_id">{{ test_id }}</v-toolbar-title> -->
     <v-spacer></v-spacer>
     <div v-if="user.uid">
       <span class="subtitle-1 mr-2" v-if="$vuetify.breakpoint.smAndUp">{{
