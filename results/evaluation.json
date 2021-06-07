@@ -1,0 +1,1212 @@
+[
+  {
+    "test_id": "user5",
+    "errors": 0,
+    "endTime": 1622369837575,
+    "type": "con",
+    "duration": 74536,
+    "startTime": 1622369763039,
+    "commands": " /  emoji /  remove emoji /  strong /  remove strong /  Italy /  remove italic and red colour /  in red colour",
+    "__collections__": {}
+  },
+  {
+    "errors": 1,
+    "commands": " /  emoji /  remove emoji /  Italy /  remove italic /  strong /  remove strong /  red colour /  remove colour /  remove red",
+    "test_id": "user5",
+    "type": "con",
+    "duration": 69933,
+    "endTime": 1622370086798,
+    "startTime": 1622370016865,
+    "__collections__": {}
+  },
+  {
+    "commands": " /  a strong /  remove a strong /  Italy /  remove Italy /  emoji /  activate Emoji /  remove emoji /  red colour and strong",
+    "startTime": 1622370273303,
+    "endTime": 1622370331652,
+    "test_id": "user5",
+    "errors": 0,
+    "type": "con",
+    "duration": 58349,
+    "__collections__": {}
+  },
+  {
+    "type": "con",
+    "startTime": 1622370555513,
+    "endTime": 1622370608693,
+    "duration": 53180,
+    "test_id": "user5",
+    "errors": 0,
+    "commands": " /  strong /  remove strong /  red colour /  remove red /  emoji /  remove emoji /  Italy",
+    "__collections__": {}
+  },
+  {
+    "commands": " /  red color /  remove red /  italic /  Emoji remove Italy /  remove emoji /  strong",
+    "startTime": 1622371189757,
+    "endTime": 1622371260942,
+    "test_id": "user5",
+    "duration": 71185,
+    "type": "con",
+    "errors": 0,
+    "__collections__": {}
+  },
+  {
+    "test_id": "user5",
+    "commands": " / red color /  strong /  emoji",
+    "errors": 0,
+    "endTime": 1622371468117,
+    "type": "sel",
+    "duration": 40074,
+    "startTime": 1622371428043,
+    "__collections__": {}
+  },
+  {
+    "errors": 1,
+    "type": "sel",
+    "commands": " /  strong /  italic /  bread color /  red color /  emoji",
+    "startTime": 1622372941341,
+    "test_id": "user5",
+    "duration": 51414,
+    "endTime": 1622372992755,
+    "__collections__": {}
+  },
+  {
+    "endTime": 1622373058962,
+    "type": "sel",
+    "commands": " /  red color /  is strong /  italic /  emoji",
+    "startTime": 1622373014442,
+    "duration": 44520,
+    "errors": 0,
+    "test_id": "user5",
+    "__collections__": {}
+  },
+  {
+    "type": "sel",
+    "test_id": "user5",
+    "duration": 52422,
+    "endTime": 1622373133513,
+    "commands": " /  strong /  metallic color /  red color and italic /  emoji",
+    "startTime": 1622373081091,
+    "errors": 1,
+    "__collections__": {}
+  },
+  {
+    "duration": 51509,
+    "startTime": 1622373176269,
+    "test_id": "user5",
+    "type": "sel",
+    "errors": 0,
+    "commands": " /  italic /  emoji /  strong /  red color",
+    "endTime": 1622373227778,
+    "__collections__": {}
+  },
+  {
+    "startTime": 1622374604156,
+    "duration": 79133,
+    "endTime": 1622374683289,
+    "type": "sel",
+    "test_id": "user6",
+    "commands": " / red color /  italic /  bow /  strong /  emoji",
+    "errors": 1,
+    "__collections__": {}
+  },
+  {
+    "test_id": "user6",
+    "commands": " /  emoji /  italic /  strong /  the right color /  red color /  red color",
+    "endTime": 1622374862577,
+    "duration": 110267,
+    "errors": 1,
+    "startTime": 1622374752310,
+    "type": "sel",
+    "__collections__": {}
+  },
+  {
+    "test_id": "user6",
+    "endTime": 1622375010721,
+    "startTime": 1622374920131,
+    "commands": " /  strong /  italic /  emoji /  Windows causes plate color /  red color",
+    "type": "sel",
+    "errors": 1,
+    "duration": 90590,
+    "__collections__": {}
+  },
+  {
+    "type": "sel",
+    "duration": 85801,
+    "errors": 0,
+    "test_id": "user6",
+    "endTime": 1622375121425,
+    "commands": " / strong /  red color /  emoji /  italic",
+    "startTime": 1622375035624,
+    "__collections__": {}
+  },
+  {
+    "commands": " /  red color /  italic /  emoji /  strong",
+    "startTime": 1622375160961,
+    "errors": 0,
+    "endTime": 1622375231872,
+    "test_id": "user6",
+    "type": "sel",
+    "duration": 70911,
+    "__collections__": {}
+  },
+  {
+    "commands": " /  red color /  remove trap /  remove red /  strong /  remove strong /  italic /  Emoji Emoji /  remove italic",
+    "errors": 1,
+    "type": "con",
+    "endTime": 1622375431496,
+    "test_id": "user6",
+    "startTime": 1622375344194,
+    "duration": 87302,
+    "__collections__": {}
+  },
+  {
+    "startTime": 1622375495817,
+    "type": "con",
+    "endTime": 1622375569344,
+    "test_id": "user6",
+    "duration": 73527,
+    "errors": 0,
+    "commands": " /  strong /  remove strong /  italic /  remove italic /  red color /  emoji /  remove red",
+    "__collections__": {}
+  },
+  {
+    "duration": 77558,
+    "startTime": 1622375594873,
+    "test_id": "user6",
+    "errors": 1,
+    "endTime": 1622375672431,
+    "commands": " /  atonic /  italic /  remove italic /  strong /  emoji /  remove strong /  red color /  remove emoji",
+    "type": "con",
+    "__collections__": {}
+  },
+  {
+    "test_id": "user6",
+    "startTime": 1622375700141,
+    "endTime": 1622375802613,
+    "errors": 0,
+    "commands": " /  strong /  remove strong /  strong /  remove strong /  metallic and red color / garlic and red color /  remove italic /  remove red /  emoji",
+    "duration": 102472,
+    "type": "con",
+    "__collections__": {}
+  },
+  {
+    "commands": " / emoji /  strong /  remove emoji /  remove strong /  red color",
+    "errors": 0,
+    "test_id": "user6",
+    "type": "con",
+    "endTime": 1622375874646,
+    "duration": 59597,
+    "startTime": 1622375815049,
+    "__collections__": {}
+  },
+  {
+    "endTime": 1622378819035,
+    "errors": 2,
+    "type": "con",
+    "test_id": "user2",
+    "duration": 63640,
+    "startTime": 1622378755395,
+    "commands": " /  emoji /  Bolt /  remove emoji /  Boot /  strong /  remove strong /  italic /  remove italic /  red color",
+    "__collections__": {}
+  },
+  {
+    "test_id": "user2",
+    "startTime": 1622378842050,
+    "endTime": 1622378922196,
+    "commands": " /  emoji /  remove emoji /  italic /  remove italic /  strong /  remove strong /  redcougar /  red color /  remove color /  remove collar /  remove collar /  remove red",
+    "type": "con",
+    "errors": 4,
+    "duration": 80146,
+    "__collections__": {}
+  },
+  {
+    "test_id": "user2",
+    "errors": 1,
+    "duration": 57294,
+    "endTime": 1622378993551,
+    "startTime": 1622378936257,
+    "commands": " /  Gronkh /  strong /  remove strong /  italic /  remove italic /  emoji /  remove emoji /  red color strong",
+    "type": "con",
+    "__collections__": {}
+  },
+  {
+    "errors": 2,
+    "commands": " /  strong /  remove strong /  red color /  remove Raid /  remove Raid / red collar /  remove red color /  emoji /  remove emoji",
+    "type": "con",
+    "duration": 75656,
+    "test_id": "user2",
+    "startTime": 1622379022673,
+    "endTime": 1622379098329,
+    "__collections__": {}
+  },
+  {
+    "duration": 45971,
+    "endTime": 1622379170548,
+    "startTime": 1622379124577,
+    "commands": " /  red collar /  remove red color /  emoji /  remove emoji /  strong /  strong",
+    "type": "con",
+    "errors": 0,
+    "test_id": "user2",
+    "__collections__": {}
+  },
+  {
+    "duration": 24373,
+    "startTime": 1622379204987,
+    "type": "sel",
+    "commands": " /  red collar /  strong /  emoji",
+    "endTime": 1622379229360,
+    "test_id": "user2",
+    "errors": 0,
+    "__collections__": {}
+  },
+  {
+    "duration": 27697,
+    "endTime": 1622379266583,
+    "commands": " /  strong /  red color /  emoji",
+    "startTime": 1622379238886,
+    "test_id": "user2",
+    "errors": 0,
+    "type": "sel",
+    "__collections__": {}
+  },
+  {
+    "startTime": 1622379277488,
+    "duration": 30695,
+    "type": "sel",
+    "errors": 0,
+    "endTime": 1622379308183,
+    "test_id": "user2",
+    "commands": " /  strong /  red color /  emoji",
+    "__collections__": {}
+  },
+  {
+    "commands": " /  vitalic /  stronk /  strong /  emoji /  emoji /  red color",
+    "errors": 1,
+    "endTime": 1622379380784,
+    "startTime": 1622379326691,
+    "type": "sel",
+    "duration": 54093,
+    "test_id": "user2",
+    "__collections__": {}
+  },
+  {
+    "type": "sel",
+    "test_id": "user2",
+    "commands": " /  beteiligt /  emoji /  Bolt /  strong /  red color /  remove emoji /  red color",
+    "duration": 68780,
+    "endTime": 1622379566416,
+    "startTime": 1622379497636,
+    "errors": 2,
+    "__collections__": {}
+  },
+  {
+    "startTime": 1622380261868,
+    "duration": 85070,
+    "test_id": "user7",
+    "type": "con",
+    "endTime": 1622380346938,
+    "errors": 0,
+    "commands": " /  emoji /  remove emoji /  strong /  remove strong /  italic /  remove italic /  red color",
+    "__collections__": {}
+  },
+  {
+    "startTime": 1622380414649,
+    "endTime": 1622380506997,
+    "duration": 92348,
+    "type": "con",
+    "test_id": "user7",
+    "errors": 1,
+    "commands": " /  emoji /  remove emoji /  a mighty /  and activate emoji /  remove emoji /  Italy /  remove italic /  strong /  remove strong /  red color /  remove red color",
+    "__collections__": {}
+  },
+  {
+    "duration": 58535,
+    "test_id": "user7",
+    "errors": 1,
+    "startTime": 1622380542051,
+    "commands": " /  drunk /  remove trunk /  remove strong /  italic /  remove italic /  emoji /  Emoji /  remove emoji /  strong and Fred /  red color",
+    "endTime": 1622380600586,
+    "type": "con",
+    "__collections__": {}
+  },
+  {
+    "startTime": 1622380642431,
+    "type": "con",
+    "test_id": "user7",
+    "commands": " /  strong /  remove throne /  remove throw /  remove strong /  red color /  remove red color /  emoji /  snow /  does everything /  Glencoe /  this year promote normal normal /  I'm lucky /  emoji /  remove emoji /  italic",
+    "endTime": 1622380738261,
+    "duration": 95830,
+    "errors": 5,
+    "__collections__": {}
+  },
+  {
+    "duration": 56106,
+    "type": "con",
+    "commands": " /  red color /  remove red color /  metallic /  remove italic /  emoji /  remove emoji /  strong",
+    "startTime": 1622380773362,
+    "errors": 0,
+    "test_id": "user7",
+    "endTime": 1622380829468,
+    "__collections__": {}
+  },
+  {
+    "duration": 55464,
+    "commands": " /  emoji /  remove emoji /  Little League /  Italy /  remote /  strong /  red color",
+    "endTime": 1622381037418,
+    "startTime": 1622380981954,
+    "errors": 2,
+    "type": "sel",
+    "test_id": "user7",
+    "__collections__": {}
+  },
+  {
+    "endTime": 1622381142442,
+    "test_id": "user7",
+    "errors": 1,
+    "commands": " /  emoji /  remove emoji /  red color /  trunk",
+    "type": "sel",
+    "startTime": 1622381105752,
+    "duration": 36690,
+    "__collections__": {}
+  },
+  {
+    "commands": " /  red color /  strong /  emoji /  remove emoji /  Little League /  italic",
+    "type": "sel",
+    "test_id": "user7",
+    "errors": 1,
+    "duration": 53299,
+    "endTime": 1622381217331,
+    "startTime": 1622381164032,
+    "__collections__": {}
+  },
+  {
+    "endTime": 1622381308291,
+    "type": "sel",
+    "test_id": "user7",
+    "duration": 59074,
+    "startTime": 1622381249217,
+    "errors": 1,
+    "commands": " /  emoji /  remove emoji /  strong /  bread and a Catholic /  red color and Italy",
+    "__collections__": {}
+  },
+  {
+    "duration": 77874,
+    "errors": 2,
+    "commands": " /  emoji /  friends enjoy /  remove emoji /  Emoji /  what's happened /  strong /  red color /  italic",
+    "test_id": "user7",
+    "endTime": 1622381408316,
+    "type": "sel",
+    "startTime": 1622381330442,
+    "__collections__": {}
+  },
+  {
+    "test_id": "user9",
+    "errors": 6,
+    "type": "sel",
+    "commands": " / emoji /  bold /  Italic /  remove emoji /  remove emoji /  remove emoji /  remove /  AV /  remove Italic /  remove /  bold /  remove /  remove /  red colour /  remove /  remove gold /  Italic",
+    "startTime": 1622382705349,
+    "duration": 218396,
+    "endTime": 1622382923745,
+    "__collections__": {}
+  },
+  {
+    "commands": " /  emoji /  bold /  Italic /  red colour /  red colour /  remove Italic /  Italic",
+    "endTime": 1622383263006,
+    "test_id": "user9",
+    "type": "sel",
+    "duration": 137137,
+    "startTime": 1622383125869,
+    "errors": 0,
+    "__collections__": {}
+  },
+  {
+    "test_id": "user9",
+    "errors": 0,
+    "endTime": 1622383523032,
+    "duration": 87845,
+    "commands": " /  bold /  Italic /  emoji /  red colour",
+    "type": "sel",
+    "startTime": 1622383435187,
+    "__collections__": {}
+  },
+  {
+    "commands": " /  bold /  red colour /  emoji /  Italic",
+    "type": "sel",
+    "test_id": "user9",
+    "duration": 73161,
+    "errors": 0,
+    "endTime": 1622383751830,
+    "startTime": 1622383678669,
+    "__collections__": {}
+  },
+  {
+    "type": "sel",
+    "test_id": "user9",
+    "errors": 1,
+    "commands": " / colour /  red colour /  Italic /  emoji /  bold",
+    "endTime": 1622384247997,
+    "duration": 79430,
+    "startTime": 1622384168567,
+    "__collections__": {}
+  },
+  {
+    "endTime": 1622385507782,
+    "startTime": 1622385381196,
+    "type": "con",
+    "errors": 2,
+    "commands": " /  red colour /  remove red colour /  world /  it remove bold /  remove gold /  remove bold /  remove bold /  remove bold /  remove /  remove /  remove bold /  remove bold /  remove strong /  Italic /  remove Italic /  Italic /  remove Italic /  emoji /  remove emoji",
+    "duration": 126586,
+    "test_id": "user9",
+    "__collections__": {}
+  },
+  {
+    "endTime": 1622385905205,
+    "startTime": 1622385762894,
+    "duration": 142311,
+    "commands": " /  bold /  remove strong /  Italic /  remove Italic remove Italic /  red colour /  red colour /  remove /  remove red colour /  emoji /  remove emoji",
+    "test_id": "user9",
+    "errors": 1,
+    "type": "con",
+    "__collections__": {}
+  },
+  {
+    "startTime": 1622386493933,
+    "type": "con",
+    "duration": 64714,
+    "test_id": "user9",
+    "commands": " /  Italic /  remove Italic /  Bolt /  bold /  remove bald /  remove strong /  emoji /  remove emoji /  red colour /  remove red colour",
+    "errors": 2,
+    "endTime": 1622386558647,
+    "__collections__": {}
+  },
+  {
+    "errors": 0,
+    "duration": 75326,
+    "startTime": 1622386725252,
+    "endTime": 1622386800578,
+    "commands": " /  strong /  remove strong /  red colour and Italic /  remove red colour /  remove italics /  emoji /  remove emoji",
+    "test_id": "user9",
+    "type": "con",
+    "__collections__": {}
+  },
+  {
+    "commands": " /  Italic /  remove Italic /  emoji /  remove emoji /  strong /  remove strong /  red colour /  remove red colour",
+    "errors": 0,
+    "duration": 56465,
+    "endTime": 1622386875621,
+    "startTime": 1622386819156,
+    "type": "con",
+    "test_id": "user9",
+    "__collections__": {}
+  },
+  {
+    "endTime": 1622393411221,
+    "startTime": 1622393349055,
+    "errors": 1,
+    "test_id": "user8",
+    "commands": " /  dress color /  red color /  italic /  the strong /  emoji",
+    "duration": 62166,
+    "type": "sel",
+    "__collections__": {}
+  },
+  {
+    "commands": " /  activate emoji /  remove emoji / emoji /  remove emoji /  italic /  the strong /  red color",
+    "type": "sel",
+    "endTime": 1622393497565,
+    "errors": 0,
+    "test_id": "user8",
+    "duration": 64559,
+    "startTime": 1622393433006,
+    "__collections__": {}
+  },
+  {
+    "startTime": 1622393540021,
+    "errors": 0,
+    "type": "sel",
+    "commands": " / you're strong /  italic /  emoji /  is strong and red color",
+    "endTime": 1622393588678,
+    "test_id": "user8",
+    "duration": 48657,
+    "__collections__": {}
+  },
+  {
+    "test_id": "user8",
+    "startTime": 1622393627046,
+    "endTime": 1622393667296,
+    "type": "sel",
+    "duration": 40250,
+    "commands": " /  strong /  red color /  emoji /  italic",
+    "errors": 0,
+    "__collections__": {}
+  },
+  {
+    "type": "sel",
+    "startTime": 1622393679683,
+    "test_id": "user8",
+    "commands": " /  dress color /  bread color /  Brett /  italic /  red color /  strong /  emoji",
+    "duration": 49992,
+    "endTime": 1622393729675,
+    "errors": 3,
+    "__collections__": {}
+  },
+  {
+    "commands": " /  red color /  remove red color /  the strong /  Gringo's Restaurant /  remove restaurant /  remove restaurant /  remove strong /  remove strong /  italic /  emoji",
+    "startTime": 1622397054337,
+    "errors": 3,
+    "test_id": "user8",
+    "duration": 69434,
+    "endTime": 1622397123771,
+    "type": "con",
+    "__collections__": {}
+  },
+  {
+    "duration": 42457,
+    "endTime": 1622397177337,
+    "startTime": 1622397134880,
+    "commands": " /  strong /  remove strong /  italic /  red color remove Italy /  Emoji remove red color",
+    "errors": 0,
+    "test_id": "user8",
+    "type": "con",
+    "__collections__": {}
+  },
+  {
+    "commands": " /  italic /  Pig movie talaq /  remove italic /  strong /  emoji /  remove Strunk and emoji /  remove a strong /  red color",
+    "startTime": 1622397187126,
+    "type": "con",
+    "duration": 56130,
+    "errors": 1,
+    "endTime": 1622397243256,
+    "test_id": "user8",
+    "__collections__": {}
+  },
+  {
+    "test_id": "user8",
+    "errors": 0,
+    "type": "con",
+    "duration": 46881,
+    "endTime": 1622397305080,
+    "commands": " /  the strong /  remove the strong /  red color and metallic /  remove red color and metallic /  emoji /  remove emoji",
+    "startTime": 1622397258199,
+    "__collections__": {}
+  },
+  {
+    "type": "con",
+    "startTime": 1622397315427,
+    "duration": 55869,
+    "errors": 2,
+    "commands": " /  italic /  the movie Titanic /  Norwall /  remove italic /  emoji /  remove emoji /  strong /  remove strong /  red color",
+    "endTime": 1622397371296,
+    "test_id": "user8",
+    "__collections__": {}
+  },
+  {
+    "type": "sel",
+    "startTime": 1622424225464,
+    "errors": 1,
+    "commands": " / strong /  Italy /  emoji /  red colour /  red colour /  remove emoji /  remove Italic /  red colour /  remove /  remove strong",
+    "duration": 148826,
+    "endTime": 1622424374290,
+    "test_id": "user10",
+    "__collections__": {}
+  },
+  {
+    "commands": " /  emoji /  e /  e /  Italic /  Trang /  from /  from /  bold /  Ud /  red colour /  red colour",
+    "type": "sel",
+    "duration": 118537,
+    "endTime": 1622425821148,
+    "startTime": 1622425702611,
+    "test_id": "user10",
+    "errors": 6,
+    "__collections__": {}
+  },
+  {
+    "duration": 69528,
+    "commands": " /  wrong /  Italic /  red colour /  emoji",
+    "startTime": 1622425875578,
+    "test_id": "user10",
+    "endTime": 1622425945106,
+    "type": "sel",
+    "errors": 0,
+    "__collections__": {}
+  },
+  {
+    "test_id": "user10",
+    "endTime": 1622426046650,
+    "errors": 2,
+    "commands": " /  Gold /  Ud /  red colour /  emoji /  Titanic /  Italic",
+    "type": "sel",
+    "startTime": 1622425998083,
+    "duration": 48567,
+    "__collections__": {}
+  },
+  {
+    "type": "sel",
+    "errors": 0,
+    "duration": 52349,
+    "endTime": 1622426220708,
+    "commands": " /  red colour /  Italic /  emoji /  strong",
+    "startTime": 1622426168359,
+    "test_id": "user10",
+    "__collections__": {}
+  },
+  {
+    "duration": 58433,
+    "errors": 0,
+    "type": "con",
+    "startTime": 1622426249666,
+    "endTime": 1622426308099,
+    "test_id": "user10",
+    "commands": " /  red colour /  remove red colour /  strong /  remove strong /  Italic /  remove Italic /  emoji",
+    "__collections__": {}
+  },
+  {
+    "endTime": 1622426392681,
+    "errors": 1,
+    "duration": 65342,
+    "commands": " /  song /  strong /  remove strong /  Italic /  remove Italic /  red colour /  red colour /  remove red colour /  emoji /  remove emoji",
+    "startTime": 1622426327339,
+    "test_id": "user10",
+    "type": "con",
+    "__collections__": {}
+  },
+  {
+    "type": "con",
+    "commands": " /  Italic /  remove /  remove Italic /  from /  wrong /  remove from /  remove strong /  emoji /  remove emoji /  red colour /  remove red colour",
+    "duration": 78790,
+    "errors": 3,
+    "endTime": 1622426495187,
+    "test_id": "user10",
+    "startTime": 1622426416397,
+    "__collections__": {}
+  },
+  {
+    "startTime": 1622426503830,
+    "commands": " /  strong /  remove strong /  red colour and Italic /  remove /  remove red colour and Italic /  emoji /  e remove emoji",
+    "endTime": 1622426559309,
+    "errors": 1,
+    "duration": 55479,
+    "type": "con",
+    "test_id": "user10",
+    "__collections__": {}
+  },
+  {
+    "duration": 67805,
+    "endTime": 1622426637608,
+    "commands": " /  Italic /  remove Italic /  remove Italic /  e emoji /  remove emoji /  from /  strong /  remove strong /  red colour",
+    "type": "con",
+    "errors": 1,
+    "test_id": "user10",
+    "startTime": 1622426569803,
+    "__collections__": {}
+  },
+  {
+    "commands": " /  emoji /  remove emoji /  e gold /  Bolt /  remove yellow colour /  remove bald /  remove Bolt /  it /  remove strong /  Italian /  Italic /  remove Italic /  red colour",
+    "test_id": "user11",
+    "duration": 107149,
+    "errors": 2,
+    "type": "con",
+    "startTime": 1622426947701,
+    "endTime": 1622427054850,
+    "__collections__": {}
+  },
+  {
+    "commands": " /  emoji /  remove emoji /  Italic /  remove Italic /  strong /  remove from /  remove strong /  red colour /  remove red colour",
+    "errors": 1,
+    "type": "con",
+    "duration": 60256,
+    "endTime": 1622427130335,
+    "test_id": "user11",
+    "startTime": 1622427070079,
+    "__collections__": {}
+  },
+  {
+    "errors": 0,
+    "type": "con",
+    "commands": " /  strong /  wrong /  remove strong /  Italic /  remove Italic /  emoji /  remove emoji /  red colour /  and strong /  remove red colour /  remove strong",
+    "startTime": 1622427143400,
+    "duration": 74453,
+    "test_id": "user11",
+    "endTime": 1622427217853,
+    "__collections__": {}
+  },
+  {
+    "test_id": "user11",
+    "commands": " /  wrong /  remove from /  remove strong /  red colour /  remove red colour /  emoji /  remove emoji /  Italic /  remove Italic",
+    "type": "con",
+    "duration": 72253,
+    "errors": 1,
+    "startTime": 1622427243973,
+    "endTime": 1622427316226,
+    "__collections__": {}
+  },
+  {
+    "duration": 61617,
+    "test_id": "user11",
+    "startTime": 1622427325130,
+    "endTime": 1622427386747,
+    "type": "con",
+    "commands": " /  red colour /  remove red colour /  Italic /  remove Italic /  emoji /  remove emoji /  remove emoji /  strong /  remove strong",
+    "errors": 0,
+    "__collections__": {}
+  },
+  {
+    "startTime": 1622427431322,
+    "test_id": "user11",
+    "commands": " /  red colour /  Trump /  strong /  Italic /  emoji",
+    "type": "sel",
+    "endTime": 1622427473613,
+    "errors": 1,
+    "duration": 42291,
+    "__collections__": {}
+  },
+  {
+    "duration": 43041,
+    "test_id": "user11",
+    "startTime": 1622427481398,
+    "type": "sel",
+    "commands": " /  strong /  Italic /  red colour /  emoji",
+    "endTime": 1622427524439,
+    "errors": 0,
+    "__collections__": {}
+  },
+  {
+    "commands": " /  Italic /  strong /  emoji /  red colour",
+    "duration": 46594,
+    "startTime": 1622427589556,
+    "endTime": 1622427636150,
+    "errors": 0,
+    "type": "sel",
+    "test_id": "user11",
+    "__collections__": {}
+  },
+  {
+    "endTime": 1622427690649,
+    "test_id": "user11",
+    "duration": 39818,
+    "type": "sel",
+    "commands": " /  wrong /  red colour and Italic /  emoji",
+    "startTime": 1622427650831,
+    "errors": 0,
+    "__collections__": {}
+  },
+  {
+    "duration": 51690,
+    "startTime": 1622427701082,
+    "test_id": "user11",
+    "endTime": 1622427752772,
+    "commands": " /  Italic /  emoji /  strong /  red colour",
+    "errors": 0,
+    "type": "sel",
+    "__collections__": {}
+  },
+  {
+    "errors": 3,
+    "duration": 109415,
+    "endTime": 1622428236280,
+    "test_id": "user12",
+    "commands": " /  emoji /  emoji /  remove emoji /  from /  strong /  remove strong /  strong /  remove strong /  Italic /  remove atanic /  remove Italic /  red colour /  remove /  remove red colour",
+    "startTime": 1622428126865,
+    "type": "con",
+    "__collections__": {}
+  },
+  {
+    "errors": 2,
+    "startTime": 1622428244528,
+    "type": "con",
+    "duration": 83711,
+    "commands": " /  emoji /  remove emoji /  remove emoji /  Titanic /  Italic /  remove Italic /  ok /  bold /  remove bold /  remove bold /  remove strong /  red colour /  remove red colour",
+    "test_id": "user12",
+    "endTime": 1622428328239,
+    "__collections__": {}
+  },
+  {
+    "errors": 1,
+    "commands": " /  from /  strong /  remove strong /  Italic /  remove Italic /  emoji /  remove emoji /  red colour /  strong /  remove red colour /  remove strong",
+    "duration": 73423,
+    "type": "con",
+    "startTime": 1622428344142,
+    "endTime": 1622428417565,
+    "test_id": "user12",
+    "__collections__": {}
+  },
+  {
+    "errors": 3,
+    "commands": " /  emoji /  remove emoji /  wrong /  hopefully /  remove from /  remove strong /  red colour /  remove red colour /  emoji /  remove emoji /  Titanic /  Italic /  remove Italic",
+    "type": "con",
+    "startTime": 1622428437249,
+    "endTime": 1622428512696,
+    "test_id": "user12",
+    "duration": 75447,
+    "__collections__": {}
+  },
+  {
+    "commands": " /  red colour /  remove red colour /  Italic /  remove italics /  emoji /  remove emoji /  strong /  remove strong",
+    "duration": 52356,
+    "test_id": "user12",
+    "errors": 0,
+    "type": "con",
+    "startTime": 1622428520467,
+    "endTime": 1622428572823,
+    "__collections__": {}
+  },
+  {
+    "test_id": "user12",
+    "type": "sel",
+    "startTime": 1622428596299,
+    "duration": 36646,
+    "endTime": 1622428632945,
+    "errors": 1,
+    "commands": " /  red colour /  strong /  Titanic /  Italic /  emoji",
+    "__collections__": {}
+  },
+  {
+    "type": "sel",
+    "test_id": "user12",
+    "commands": " /  song /  strong /  Italic /  red colour /  emoji",
+    "duration": 40064,
+    "errors": 1,
+    "startTime": 1622428646615,
+    "endTime": 1622428686679,
+    "__collections__": {}
+  },
+  {
+    "errors": 0,
+    "commands": " /  Italic /  strong /  emoji /  red colour",
+    "endTime": 1622428749509,
+    "type": "sel",
+    "startTime": 1622428707626,
+    "test_id": "user12",
+    "duration": 41883,
+    "__collections__": {}
+  },
+  {
+    "duration": 41018,
+    "test_id": "user12",
+    "startTime": 1622428765370,
+    "errors": 0,
+    "type": "sel",
+    "endTime": 1622428806388,
+    "commands": " /  strong /  red colour and Italic /  emoji",
+    "__collections__": {}
+  },
+  {
+    "endTime": 1622428929416,
+    "test_id": "user12",
+    "type": "sel",
+    "duration": 81728,
+    "commands": " /  Titanic /  Italic /  emoji /  song /  from /  strong /  red colour /  remove emoji /  remove Italic /  remove bold /  remove wrong",
+    "errors": 3,
+    "startTime": 1622428847688,
+    "__collections__": {}
+  },
+  {
+    "duration": 96969,
+    "errors": 3,
+    "test_id": "user1",
+    "commands": " /  emoji /  remove emoji /  the strong /  remove pestrong /  italic /  remove italic /  read text /  breath test /  text Brett /  red color /  emoji",
+    "startTime": 1622556501868,
+    "type": "con",
+    "endTime": 1622556598837,
+    "__collections__": {}
+  },
+  {
+    "test_id": "user1",
+    "endTime": 1622556692462,
+    "type": "con",
+    "errors": 3,
+    "commands": " /  emoji /  remove emoji /  beetelite /  Eataly /  italic /  remove italic /  the song /  They're strong /  remove strong /  red color /  remove red color",
+    "startTime": 1622556616948,
+    "duration": 75514,
+    "__collections__": {}
+  },
+  {
+    "test_id": "user1",
+    "startTime": 1622557245287,
+    "endTime": 1622557294819,
+    "commands": " /  strong /  remove a strong /  italic /  remove italic /  emoji /  Chris Conner /  red color",
+    "type": "con",
+    "duration": 49532,
+    "errors": 1,
+    "__collections__": {}
+  },
+  {
+    "test_id": "user1",
+    "type": "con",
+    "endTime": 1622557366957,
+    "duration": 62537,
+    "commands": " /  the strong /  remove a strong /  red color /  italic /  remove red color /  emoji /  remove italic /  remove emoji",
+    "startTime": 1622557304420,
+    "errors": 0,
+    "__collections__": {}
+  },
+  {
+    "endTime": 1622557473876,
+    "errors": 0,
+    "test_id": "user1",
+    "startTime": 1622557425321,
+    "type": "con",
+    "commands": " /  red color /  remove red color /  italic /  Emoji removed italic /  remove emoji /  the strong",
+    "duration": 48555,
+    "__collections__": {}
+  },
+  {
+    "errors": 0,
+    "commands": " /  red color /  strong /  Eataly /  emoji",
+    "type": "sel",
+    "duration": 45059,
+    "endTime": 1622557545154,
+    "test_id": "user1",
+    "startTime": 1622557500095,
+    "__collections__": {}
+  },
+  {
+    "commands": " / stroke /  strong /  italic /  red color /  emoji",
+    "startTime": 1622557581570,
+    "errors": 1,
+    "endTime": 1622557632010,
+    "type": "sel",
+    "duration": 50440,
+    "test_id": "user1",
+    "__collections__": {}
+  },
+  {
+    "test_id": "user1",
+    "commands": " / red color /  emoji /  this throng remove emoji /  the strong /  italic",
+    "duration": 55776,
+    "endTime": 1622557696674,
+    "type": "sel",
+    "startTime": 1622557640898,
+    "errors": 0,
+    "__collections__": {}
+  },
+  {
+    "type": "sel",
+    "commands": " / strong /  red color /  emojis /  Italy",
+    "errors": 0,
+    "startTime": 1622557701727,
+    "test_id": "user1",
+    "endTime": 1622557752307,
+    "duration": 50580,
+    "__collections__": {}
+  },
+  {
+    "test_id": "user1",
+    "commands": " / italic /  emoji /  its trunk /  the strong /  red color",
+    "endTime": 1622557809658,
+    "errors": 1,
+    "duration": 51349,
+    "startTime": 1622557758309,
+    "type": "sel",
+    "__collections__": {}
+  },
+  {
+    "type": "sel",
+    "duration": 151546,
+    "endTime": 1622558827668,
+    "test_id": "user3",
+    "commands": " / emoji /  Bolt /  Boot /  strong /  italic /  remove emoji /  italic /  remove italic /  italic /  remove Bolt /  remove /  remove bold remove strong /  remove italic /  Titanic /  italic /  remove italic /  color red",
+    "startTime": 1622558676122,
+    "errors": 5,
+    "__collections__": {}
+  },
+  {
+    "startTime": 1622558853954,
+    "commands": " /  emoji /  emoji /  Blick /  italix /  italic /  remove italic /  Bolt /  strong /  color red",
+    "endTime": 1622558937487,
+    "errors": 3,
+    "type": "sel",
+    "test_id": "user3",
+    "duration": 83533,
+    "__collections__": {}
+  },
+  {
+    "startTime": 1622558952387,
+    "commands": " /  color red /  strong /  remove Raid /  remove color /  remove collar /  remove collar red /  strong /  italic /  emoji /  emoji /  emoji",
+    "duration": 81708,
+    "test_id": "user3",
+    "errors": 3,
+    "type": "sel",
+    "endTime": 1622559034095,
+    "__collections__": {}
+  },
+  {
+    "startTime": 1622559054995,
+    "endTime": 1622559112977,
+    "test_id": "user3",
+    "commands": " /  strong /  color red /  emoji / vitalic",
+    "duration": 57982,
+    "type": "sel",
+    "errors": 0,
+    "__collections__": {}
+  },
+  {
+    "type": "sel",
+    "duration": 81050,
+    "commands": " /  color red /  emoji / botran /  strong /  emoji",
+    "endTime": 1622559272956,
+    "errors": 1,
+    "test_id": "user3",
+    "startTime": 1622559191906,
+    "__collections__": {}
+  },
+  {
+    "type": "con",
+    "duration": 82666,
+    "test_id": "user3",
+    "endTime": 1622559376845,
+    "errors": 1,
+    "commands": " /  color red /  remove collar red /  strong /  remove strong /  metallic /  italic /  remove italic /  emoji",
+    "startTime": 1622559294179,
+    "__collections__": {}
+  },
+  {
+    "type": "con",
+    "startTime": 1622559417585,
+    "endTime": 1622559473414,
+    "duration": 55829,
+    "errors": 2,
+    "test_id": "user3",
+    "commands": " /  strong /  remove strong /  Conrad /  color red /  emoji /  remove color red /  hallo Michael",
+    "__collections__": {}
+  },
+  {
+    "type": "con",
+    "duration": 1622560328812,
+    "endTime": 1622560328812,
+    "test_id": "user3",
+    "startTime": 0,
+    "commands": "",
+    "errors": 0,
+    "__collections__": {}
+  },
+  {
+    "errors": 0,
+    "startTime": 1622568686230,
+    "endTime": 1622568754866,
+    "test_id": "user4",
+    "duration": 68636,
+    "commands": " / White Collar /  red color /  italic /  strong /  emoji",
+    "type": "sel",
+    "__collections__": {}
+  },
+  {
+    "endTime": 1622568838391,
+    "duration": 36976,
+    "type": "sel",
+    "test_id": "user4",
+    "errors": 1,
+    "startTime": 1622568801415,
+    "commands": " /  red collar /  Gronkh /  italic /  strong /  emoji",
+    "__collections__": {}
+  },
+  {
+    "startTime": 1622568860442,
+    "duration": 54692,
+    "commands": " /  red collar /  emoji /  strong /  italic /  strong /  remove strong /  remove emoji /  strong",
+    "errors": 0,
+    "test_id": "user4",
+    "type": "sel",
+    "endTime": 1622568915134,
+    "__collections__": {}
+  },
+  {
+    "endTime": 1622568966565,
+    "errors": 0,
+    "test_id": "user4",
+    "commands": " / strong /  red collar /  emoji /  italic",
+    "startTime": 1622568935675,
+    "type": "sel",
+    "duration": 30890,
+    "__collections__": {}
+  },
+  {
+    "endTime": 1622569019203,
+    "commands": " /  red color /  italic /  emoji /  strong",
+    "duration": 37061,
+    "startTime": 1622568982142,
+    "test_id": "user4",
+    "errors": 0,
+    "type": "sel",
+    "__collections__": {}
+  },
+  {
+    "test_id": "user4",
+    "errors": 3,
+    "endTime": 1622569161339,
+    "type": "con",
+    "startTime": 1622569109962,
+    "commands": " /  red color /  remove /  remove red color /  strong /  remove strong /  metallic /  Titanic /  italic /  remove italic /  emoji",
+    "duration": 51377,
+    "__collections__": {}
+  },
+  {
+    "startTime": 1622569167055,
+    "type": "con",
+    "commands": " /  stronk /  strong /  remove strong /  red collar /  remove red color /  emoji /  remove emoji",
+    "errors": 1,
+    "endTime": 1622569208881,
+    "test_id": "user4",
+    "duration": 41826,
+    "__collections__": {}
+  },
+  {
+    "startTime": 1622569226872,
+    "endTime": 1622569283341,
+    "duration": 56469,
+    "errors": 0,
+    "type": "con",
+    "commands": " /  italic /  remove italic /  strong /  remove strong /  emoji /  remove emoji /  White Collar /  red collar /  red collar",
+    "test_id": "user4",
+    "__collections__": {}
+  },
+  {
+    "errors": 1,
+    "type": "con",
+    "commands": " /  Gronkh /  strong /  remove strong /  red collar /  remove red color /  emoji /  remove emoji",
+    "endTime": 1622569360435,
+    "duration": 37555,
+    "test_id": "user4",
+    "startTime": 1622569322880,
+    "__collections__": {}
+  },
+  {
+    "test_id": "user4",
+    "type": "con",
+    "errors": 2,
+    "commands": " /  italic /  remove italic /  emoji /  remove emoji / Trump /  Gronkh /  strong /  red collar /  remove strong",
+    "duration": 50946,
+    "startTime": 1622569364917,
+    "endTime": 1622569415863,
+    "__collections__": {}
+  },
+  {
+    "endTime": 1622569551765,
+    "errors": 4,
+    "test_id": "user3",
+    "startTime": 1622569496842,
+    "type": "con",
+    "duration": 54923,
+    "commands": " /  italix /  beteiligt /  italix /  Titanic /  italic /  remove italic /  strong /  remove strong /  emoji /  remove emoji /  red color",
+    "__collections__": {}
+  },
+  {
+    "errors": 1,
+    "type": "con",
+    "commands": " /  Tronc /  strong /  remove strong /  red collar /  remove red color /  emoji /  remove emoji",
+    "endTime": 1622569594623,
+    "test_id": "user3",
+    "duration": 36153,
+    "startTime": 1622569558470,
+    "__collections__": {}
+  },
+  {
+    "errors": 3,
+    "commands": " /  Titanic /  italic /  remove page /  remove italic /  emoji /  remove emoji /  Gronkh /  strong /  remove strong /  red collar",
+    "test_id": "user3",
+    "endTime": 1622569700885,
+    "type": "con",
+    "startTime": 1622569647267,
+    "duration": 53618,
+    "__collections__": {}
+  }
+]
